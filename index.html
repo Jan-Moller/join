@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <script src="script.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/login.css">
+</head>
+
+<body>
+    <img class="login_logo_main" src="assets/img/join_logo_large_dark.png" alt="Join Logo">
+    <header class="login_header">
+        <span>Not a Join user?</span>
+        <button onclick="window.location.href='sign_up.html'">Sign up</button>
+    </header>
+    <main class="bg_main login_main">
+
+        <section>
+            <form class="login_form">
+                <h1>Log in</h1>
+                <input type="email" required placeholder="Email">
+                <div class="password-wrapper">
+                    <input id="passwordInput" type="password" required placeholder="Password">
+                    <img id="togglePassword" src="assets/img/lock.png" alt="Toggle password visibility">
+                </div>
+                <article class="login_button_section">
+                    <button onclick="login()">Log in</button>
+                    <button class="button_white">Guest Log in</button>
+                </article>
+            </form>
+        </section>
+    </main>
+    <footer class="login_footer">
+        <section>
+            <a>Privacy Policy</a>
+            <a>Legal notice</a>
+        </section>
+    </footer>
+
+
+</body>
+
+</html>

@@ -1,0 +1,182 @@
+.hidden {
+    overflow: hidden;
+}
+
+.login_main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.login_logo_main {
+    position: absolute;
+    top: 80px;
+    left: 77px;
+}
+
+.login_header {
+    position: absolute;
+    top: 67px;
+    right: 122px;
+    height: 49px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 35px;
+    width: auto;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+}
+
+.login_header button {
+    font-size: 16px;
+}
+
+.login_form {
+    background: rgba(255, 255, 255, 1);
+    border-radius: 30px;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+    padding: 48px 115px 48px 115px;
+    gap: 32px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+h1 {
+    width: 315px;
+    height: 89px;
+    font-weight: 700;
+    font-size: 61px;
+    color: rgba(0, 0, 0, 1);
+    margin-block-start: 0;
+    margin-block-end: 0;
+    text-align: center;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 150px;
+    border-bottom: 3px solid rgba(41, 171, 226, 1);
+}
+
+.login_button_section {
+    display: flex;
+    align-items: center;
+    gap: 35px;
+}
+
+.login_footer {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-bottom: 40px;
+
+
+}
+
+.login_footer section {
+    display: flex;
+    width: 246px;
+    height: 35px;
+    gap: 32px;
+}
+
+.login_footer section a {
+    text-decoration: none;
+    color: rgba(168, 168, 168, 1);
+    cursor: pointer;
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.login_footer section a:hover {
+    color: rgba(41, 171, 226, 1);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.back_to_login_btn_img {
+    position: absolute;
+    margin: 64px 0 0 48px;
+    cursor: pointer;
+}
+
+.sign_up_privacy_policy_section {
+    width: 231px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(168, 168, 168, 1);
+}
+
+.check_privacy_policy_design {
+    color: rgba(41, 171, 226, 1);
+    cursor: pointer;
+}
+
+.succesfull_sign_up_msg {
+    height: 74px;
+    border-radius: 20px;
+    padding: 0 25px 0 25px;
+    background: rgba(42, 54, 71, 1);
+    color: white;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.succesfull_sign_up_section {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: transparent;
+    transform: translateY(3000px);
+    transition: transform 1500ms ease-in-out;
+}
+
+.show_sign_up_msg {
+    transform: translateY(0);
+    transition: transform 1500ms ease-in-out;
+}
+
+.confirmed_password {
+    height: 70px;
+}
+
+.confirmed_password img {
+    top: 35%;
+}
+
+.wrong_password {
+    border: 1px solid red;
+}
+
+#sign_up_error_msg {
+    color: rgba(230, 0, 38, 1);
+    font-weight: 400;
+    font-size: 16px;
+    margin-top: 8px; 
+
+}
