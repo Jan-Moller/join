@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <script src="script.js"></script>
+    <script src="js/login.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/login.css">
@@ -20,15 +21,16 @@
     <main class="bg_main login_main">
 
         <section>
-            <form class="login_form">
+            <form onsubmit="login(); return false" class="login_form">
                 <h1>Log in</h1>
-                <input type="email" required placeholder="Email">
-                <div class="password-wrapper">
-                    <input id="passwordInput" type="password" required placeholder="Password">
+                <input id="login_mail" type="email" required placeholder="Email">
+                <div class="password-wrapper login_password_wrapper">
+                    <input id="login_password" id="passwordInput" type="password" required placeholder="Password">
                     <img id="togglePassword" src="assets/img/lock.png" alt="Toggle password visibility">
+                    <span style="display: none" id="login_error_msg">Your password or email is incorrect. Please try again.</span>
                 </div>
                 <article class="login_button_section">
-                    <button onclick="login()">Log in</button>
+                    <button>Log in</button>
                     <button class="button_white">Guest Log in</button>
                 </article>
             </form>

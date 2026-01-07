@@ -8,11 +8,60 @@
     <script src="script.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/summary.css">
 </head>
 
-<body onload="init('nav_item_summary')">
-    <aside w3-include-html="/templates/header.html"></aside>
+<body class="bg_main" onload="init('nav_item_summary')">
     <aside w3-include-html="/templates/navigation_side.html"></aside>
+    <main>
+        <header w3-include-html="/templates/header.html"></header>
+        <section class="headline_section">
+            <h1>Join 360</h1>
+            <div class="summary_headline_border"></div>
+            <span class="summary_headline_subelement">Key Metrics at a Glance</span>
+        </section>
+        <section class="summary_content_section">
+            <article class="summary_kpis_section">
+                <section class="summary_kpis_row">
+                    <article class="summary_kpi_element_mid_size">
+                        <img src="assets/img/pen_small.png" alt="Stift-Symbol">
+                        <div>
+                            <h2>1</h2>
+                            <span>To-do</span>
+                        </div>
+                    </article>
+                    <article class="summary_kpi_element_mid_size">
+                         <img src="assets/img/check_mark_todo.png" alt="Check-Symbol">
+                        <div>
+                            <h2>1</h2>
+                            <span>Done</span>
+                        </div>
+                    </article>
+                </section>
+                <section class="summary_kpis_row">
+                    <article class="summary_kpi_element_large">
+                         <img src="assets/img/important_small.png" alt="Important-Symbol">
+                        <div>
+                            <h2>1</h2>
+                            <span>Urgent</span>
+                        </div>
+                    </article>
+                    <article class="summary_kpi_element_large_border"></article>
+                    <article></article>
+                </section>
+                <section class="summary_kpis_row">
+                    <article class="summary_kpi_element_small"></article>
+                    <article class="summary_kpi_element_small"></article>
+                    <article class="summary_kpi_element_small"></article>
+                </section>
+            </article>
+            <article class="summary_greeting_section">
+                <span class="summary_greeting_form">Good morning,</span>
+                <span class="summary_greeting_name">Jan Möller</span>
+            </article>
+        </section>
+
+    </main>
 
 </body>
 

@@ -1,0 +1,131 @@
+.summary_headline_border {
+    height: 59px;
+    border-left: 3px solid rgba(41, 171, 226, 1)
+}
+
+.summary_headline_subelement {
+    font-weight: 400;
+    font-size: 27px;
+    color: rgba(42, 54, 71, 1);
+}
+
+.summary_content_section {
+    display: flex;
+    align-items: center;
+    margin: 56px 0 0 96px;
+    gap: 80px;
+}
+
+.summary_kpis_section {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+}
+
+.summary_kpis_row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 560px;
+}
+
+.summary_kpi_element_mid_size {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 168px;
+    width: 264px;
+    border-radius: 30px;
+    padding: 38px 19px 38px 19px;
+    gap: 18px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.summary_kpi_element_mid_size img {
+    height: 69px;
+    width: 69px;
+}
+
+.summary_kpi_element_mid_size h2 {
+    font-weight: 600;
+    font-size: 64px;
+    text-align: center;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.summary_kpi_element_mid_size span {
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+}
+
+.summary_kpi_element_large {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 560px;
+    height: 168px;
+    padding: 28px 48px 28px 48px;
+    gap: 61px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.summary_kpi_element_large img {
+    height: 69px;
+    width: 69px;
+}
+
+.summary_kpi_element_large h2 {
+    font-weight: 600;
+    font-size: 64px;
+    text-align: center;
+    margin-block-start: 0;
+    margin-block-end: 0;
+}
+
+.summary_kpi_element_large span {
+    font-weight: 400;
+    font-size: 20px;
+    text-align: center;
+}
+
+.summary_kpi_element_large_border{
+height: 102px;
+border: 1px solid rgba(209, 209, 209, 1)
+
+}
+
+.summary_kpi_element_small {
+    display: flex;
+    height: 168px;
+    width: 168px;
+    border-radius: 30px;
+    padding: 25px 0 25px 0;
+    gap: 13px;
+    background: rgba(255, 255, 255, 1);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+}
+
+.summary_greeting_section {
+    display: flex;
+    flex-direction: column;
+}
+
+.summary_greeting_form {
+    font-weight: 500;
+    font-size: 47px;
+    color: rgba(42, 54, 71, 1);
+}
+
+.summary_greeting_name {
+    font-weight: 700;
+    font-size: 64px;
+    color: rgba(41, 171, 226, 1);
+}

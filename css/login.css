@@ -173,10 +173,17 @@ h1::after {
     border: 1px solid red;
 }
 
-#sign_up_error_msg {
+#sign_up_error_msg, #login_error_msg {
     color: rgba(230, 0, 38, 1);
     font-weight: 400;
     font-size: 16px;
     margin-top: 8px; 
+}
 
+.login_password_wrapper{
+    height: 68px;
+}
+
+.login_password_wrapper img{
+   top: 35%; 
 }
