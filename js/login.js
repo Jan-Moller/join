@@ -2,9 +2,7 @@ async function login() {
     let email = document.getElementById('login_mail').value;
     let password = document.getElementById('login_password').value;
 
-    let response = await fetch(
-        BASE_URL + 'users.json?orderBy="mail"&equalTo="' + email + '"'
-    );
+    let response = await fetch(BASE_URL + 'users.json?orderBy="mail"&equalTo="' + email + '"');
     let matchingUsers = await response.json();
 
     if (matchingUsers && Object.keys(matchingUsers).length > 0) {

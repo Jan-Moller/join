@@ -60,10 +60,10 @@ button:hover {
 
 }
 
-input {
-    background: rgba(255, 255, 255, 1);
+input, textarea {
+    background: rgba(255, 255, 255, 1) !important;
     height: 48px;
-    width: 422px;
+    width: 100%;
     padding: 12px 21px 12px 21px;
     border-radius: 10px;
     border: 1px solid rgba(209, 209, 209, 1);
@@ -73,13 +73,18 @@ input {
     font-size: 20px;
 }
 
-input::placeholder {
+textarea {
+    height: 120px;
+    max-width: 100%;
+}
+
+input::placeholder, textarea::placeholder {
     color: rgba(209, 209, 209, 1);
     font-size: 20px;
     font-weight: 400;
 }
 
-input:focus-visible {
+input:focus-visible, textarea:focus-visible {
     border: 1px solid rgba(41, 171, 226, 1);
     outline: none;
 }
@@ -89,13 +94,6 @@ input[type="email"] {
     background-repeat: no-repeat;
     background-position: right 21px center;
     background-size: 20px 16px;
-}
-
-input[type="text"][placeholder="Name"] {
-    background-image: url('/assets/img/person.png');
-    background-repeat: no-repeat;
-    background-position: right 21px center;
-    background-size: 20px 20px;
 }
 
 input[type="checkbox"] {
@@ -271,4 +269,12 @@ nav {
     font-size: 61px;
     margin-block-start: 0;
     margin-block-end: 0;
+}
+
+.required_element {
+    color: red;
+}
+
+.d_none  {
+    display: none;
 }

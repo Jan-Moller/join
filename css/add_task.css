@@ -1,0 +1,250 @@
+.add_task_form_section {
+    margin: 48px 0 0 96px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    gap: 48px;
+}
+
+.add_task_form_border {
+    height: 424px;
+    border-right: 1px solid rgba(209, 209, 209, 1)
+}
+
+.add_task_input_element {
+    display: flex;
+    flex-direction: column;
+    width: 440px;
+    margin-bottom: 24px;
+}
+
+.add_task_input_element label {
+    margin-bottom: 8px;
+}
+
+.addtask_priority_btns {
+    width: 440px;
+    display: flex;
+    gap: 16px;
+}
+
+.add_task_priority_element {
+    background-color: white;
+    width: 100%;
+    height: 56px;
+    border-radius: 10px;
+    padding: 16px 10px 16px 10px;
+    gap: 8px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+
+
+}
+
+.add_task_priority_element:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.urgent_task {
+    background: rgba(255, 61, 0, 1);
+    color: white;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 21px;
+}
+
+.urgent_task img {
+    filter: brightness(0) invert(1);
+}
+
+.medium_task {
+    background: rgba(255, 168, 0, 1);
+    color: white;
+    font-family: Inter;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 21px;
+}
+
+.medium_task img {
+    filter: brightness(0) invert(1);
+}
+
+.low_task {
+    background: rgba(122, 226, 41, 1);
+    color: white;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 21px;
+}
+
+.low_task img {
+    filter: brightness(0) invert(1);
+}
+
+.category_dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.category_dropdown_btn {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 1) !important;
+    height: 48px;
+    width: 100%;
+    padding: 12px 21px 12px 21px;
+    border-radius: 10px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    color: rgba(0, 0, 0, 1);
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 20px;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+}
+
+.category_dropdown_btn:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.category_dropdown_content {
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 300ms ease-in-out;
+}
+
+.category_dropdown_content.show {
+    max-height: 200px;
+    opacity: 1;
+}
+
+.category_dropdown_content span {
+    color: black;
+    padding: 12px 16px 12px 16px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+    display: block;
+}
+
+.category_dropdown_content span:hover {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+.contacts_dropdown {
+    position: relative;
+    cursor: pointer;
+}
+
+.contacts_dropdown_wrapper {
+    position: relative;
+    width: 100%;
+    cursor: pointer;
+}
+
+.contacts_dropdown_icon {
+    position: absolute;
+    right: 21px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    pointer-events: none;
+}
+
+.contacts_dropdown_btn {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(255, 255, 255, 1) !important;
+    height: 48px;
+    width: 100%;
+    padding: 12px 21px 12px 21px;
+    border-radius: 10px;
+    border: 1px solid rgba(209, 209, 209, 1);
+    color: rgba(0, 0, 0, 1);
+    font-family: 'Inter';
+    font-weight: 400;
+    font-size: 20px;
+    box-shadow: 0px 0px 14px 3px rgba(0, 0, 0, 0.04);
+}
+
+.contacts_dropdown_btn:hover {
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+
+}
+
+.contacts_dropdown_content {
+    background-color: white;
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    max-height: 0;
+    opacity: 0;
+    overflow-y: scroll;
+    transition: all 300ms ease-in-out;
+}
+
+.contacts_dropdown_content.show {
+    max-height: 280px;
+    opacity: 1;
+}
+
+.contacts_dropdown_content article {
+    color: black;
+    padding: 12px 16px 12px 16px;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+    display: block;
+}
+
+.contacts_dropdown_content article:hover {
+    background-color: #f1f1f1;
+    border-radius: 10px;
+}
+
+.task_contact_item {
+    display: flex !important;
+    align-items: center;
+    justify-content: space-between;
+    height: 56px;
+}
+
+.contact_name_infos {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+.contact_initials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 42px;
+    width: 42px;
+    border: 2px solid white;
+    border-radius: 100%;
+    font-weight: 400;
+    font-size: 16px;
+    color: white; 
+    background: rgba(0, 190, 232, 1);
+
+
+}
