@@ -7,6 +7,7 @@
     <title>Add Task</title>
     <script src="script.js"></script>
     <script src="js/addtask.js"></script>
+    <script src="js/templates.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="css/add_task.css">
@@ -52,32 +53,57 @@
                     <label for="task_assign_to">Assigned to</label>
                     <div class="contacts_dropdown">
                         <div class="contacts_dropdown_wrapper">
-                            <input type="text" onclick="showContactsDropdown()" class="contacts_dropdown_btn" placeholder="Select contacts to assign">
-                            <img id="contacts_dropdown_icon_close" class="contacts_dropdown_icon" src="assets/img/arrow_drop_down_closed.png"
-                                alt="Pfeilbild geschlossen">
-                            <img id="contacts_dropdown_icon_open" class="contacts_dropdown_icon d_none" src="assets/img/arrow_drop_down_open.png"
-                                alt="Pfeilbild offen">
+                            <input type="text" onclick="showContactsDropdown()" class="contacts_dropdown_btn"
+                                placeholder="Select contacts to assign">
+                            <img id="contacts_dropdown_icon_close" class="contacts_dropdown_icon"
+                                src="assets/img/arrow_drop_down_closed.png" alt="Pfeilbild geschlossen">
+                            <img id="contacts_dropdown_icon_open" class="contacts_dropdown_icon d_none"
+                                src="assets/img/arrow_drop_down_open.png" alt="Pfeilbild offen">
                         </div>
+                        <article id="choosen_task_contacts_section" class="choosen_task_contacts_section"></article>
                         <div id="contacts_dropdown_content" class="contacts_dropdown_content">
-                            <article class="task_contact_item" onclick="selectTaskContact()"><div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan Möller</span></div><img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox"></article>
-                            <article class="task_contact_item" onclick="selectTaskContact()"><div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan Möller</span></div><img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox"></article>
-                            <article class="task_contact_item" onclick="selectTaskContact()"><div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan Möller</span></div><img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox"></article>
-                            <article class="task_contact_item" onclick="selectTaskContact()"><div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan Möller</span></div><img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox"></article>
-                            <article class="task_contact_item" onclick="selectTaskContact()"><div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan Möller</span></div><img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox"></article>
-                            <article class="task_contact_item" onclick="selectTaskContact()"><div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan Möller</span></div><img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox"></article>
+                            <article class="task_contact_item" id="contact_1" onclick="selectTaskContact('contact_1')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_2" onclick="selectTaskContact('contact_2')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_3" onclick="selectTaskContact('contact_3')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_4" onclick="selectTaskContact('contact_4')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_5" onclick="selectTaskContact('contact_5')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_6" onclick="selectTaskContact('contact_6')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
                         </div>
                     </div>
                 </article>
                 <article class="add_task_input_element">
                     <label for="task_category">Category<span class="required_element">*</span></label>
                     <div class="category_dropdown">
-                        <div onclick="showTaskCategoryDropdown()" 
-                            class="category_dropdown_btn">
+                        <div onclick="showTaskCategoryDropdown()" class="category_dropdown_btn">
                             <span id="category_dropdown_btn">Select task category</span>
-                            <img id="categroy_dropdown_icon_close" class="category_dropdown_icon" src="assets/img/arrow_drop_down_closed.png"
-                                alt="Pfeilbild geschlossen">
-                            <img id="categroy_dropdown_icon_open" class="category_dropdown_icon d_none" src="assets/img/arrow_drop_down_open.png"
-                                alt="Pfeilbild offen">
+                            <img id="categroy_dropdown_icon_close" class="category_dropdown_icon"
+                                src="assets/img/arrow_drop_down_closed.png" alt="Pfeilbild geschlossen">
+                            <img id="categroy_dropdown_icon_open" class="category_dropdown_icon d_none"
+                                src="assets/img/arrow_drop_down_open.png" alt="Pfeilbild offen">
                         </div>
                         <div id="category_dropdown_content" class="category_dropdown_content">
                             <span onclick="selectTaskCategory('Technical Task')">Technical Task</span>
@@ -87,7 +113,13 @@
                 </article>
                 <article class="add_task_input_element">
                     <label for="task_subtasks">Subtasks</label>
-                    <input id="task_subtasks" type="text">
+                    <input maxlength="35" placeholder="Add new Subtask" id="task_subtasks" type="text" onkeydown="if(event.key === 'Enter') { event.preventDefault(); addSubtaskInput(); } else if(event.key === 'Escape') { event.preventDefault(); clearSubtaskInput(); }">
+                    <div class="subtask_input_icon_section">
+                        <img onmousedown="clearSubtaskInput()" src="assets/img/subtasks_icon_cancel.png" alt="Storno-Icon">
+                        <div class="subtask_border"></div>
+                        <img onmousedown="addSubtaskInput()" src="assets/img/subtasks_icon_check.png" alt="Bestätigung-Icon">
+                    </div>
+                    <div id="subtask_list" class="subtask_list"></div>
                 </article>
             </section>
         </form>
