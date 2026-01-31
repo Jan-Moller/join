@@ -13,20 +13,21 @@
     <link rel="stylesheet" href="css/add_task.css">
 </head>
 
-<body onload="init('nav_item_add_task')">
+<body onload="initAddTask()">
     <aside w3-include-html="/templates/navigation_side.html"></aside>
     <main class="bg_main">
         <header w3-include-html="/templates/header.html"></header>
         <section class="headline_section">
             <h1>Add Task</h1>
         </section>
-        <form class="add_task_form_section" onsubmit="addTask(); return false;">
+        <form class="add_task_form_section">
             <section>
                 <article class="add_task_input_element">
                     <label for="task_title">Title<span class="required_element">*</span></label>
                     <input id="task_title" type="text" placeholder="Enter a title">
+                    <span class="error_msg_text" id="title_error_msg"></span>
                 </article>
-                <article class="add_task_input_element">
+                <article class="add_task_input_element add_task_task_description">
                     <label for="task_description">Description</label>
                     <textarea id="task_description" placeholder="Enter a Description"></textarea>
                 </article>
@@ -34,6 +35,7 @@
                     <label for="task_due_date">Due Date<span class="required_element">*</span></label>
                     <input id="task_due_date" type="text" placeholder="dd/mm/yyyy" onfocus="(this.type='date')"
                         onblur="if(!this.value)this.type='text'">
+                    <span class="error_msg_text" id="due_date_error_msg"></span>
                 </article>
             </section>
             <span class="add_task_form_border"></span>
@@ -45,12 +47,13 @@
                             Urgent <img src="assets/img/urgent_prio_icon.png" alt="Urgent Icon"></div>
                         <div class="add_task_priority_element" onclick="setTaskPriority('medium')" id="medium_task">
                             Medium <img src="assets/img/medium_prio_icon.png" alt="Medium Icon"></div>
-                        <div class="add_task_priority_element" onclick="setTaskPriority('low')" id="low_task">Low <img
-                                src="assets/img/low_prio_icon.png" alt="Low Icon"></div>
+                        <div class="add_task_priority_element" onclick="setTaskPriority('low')" id="low_task">Low
+                            <img src="assets/img/low_prio_icon.png" alt="Low Icon">
+                        </div>
                     </section>
                 </article>
-                <article class="add_task_input_element">
-                    <label for="task_assign_to">Assigned to</label>
+                <article class="add_task_input_element add_task_assigned_to_section">
+                    <label>Assigned to</label>
                     <div class="contacts_dropdown">
                         <div class="contacts_dropdown_wrapper">
                             <input type="text" onclick="showContactsDropdown()" class="contacts_dropdown_btn"
@@ -95,14 +98,15 @@
                         </div>
                     </div>
                 </article>
-                <article class="add_task_input_element">
-                    <label for="task_category">Category<span class="required_element">*</span></label>
+                <article class="add_task_input_element  add_task_assigned_to_section">
+                    <label>Category<span class="required_element">*</span></label>
                     <div class="category_dropdown">
-                        <div onclick="showTaskCategoryDropdown()" class="category_dropdown_btn">
+                        <div onclick="showTaskCategoryDropdown()"
+                            class="category_dropdown_btn">
                             <span id="category_dropdown_btn">Select task category</span>
-                            <img id="categroy_dropdown_icon_close" class="category_dropdown_icon"
+                            <img id="category_dropdown_icon_close" class="category_dropdown_icon"
                                 src="assets/img/arrow_drop_down_closed.png" alt="Pfeilbild geschlossen">
-                            <img id="categroy_dropdown_icon_open" class="category_dropdown_icon d_none"
+                            <img id="category_dropdown_icon_open" class="category_dropdown_icon d_none"
                                 src="assets/img/arrow_drop_down_open.png" alt="Pfeilbild offen">
                         </div>
                         <div id="category_dropdown_content" class="category_dropdown_content">
@@ -110,19 +114,32 @@
                             <span onclick="selectTaskCategory('User Story')">User Story</span>
                         </div>
                     </div>
+                    <span class="error_msg_text" id="task_category_error_msg"></span>
                 </article>
                 <article class="add_task_input_element">
                     <label for="task_subtasks">Subtasks</label>
-                    <input maxlength="35" placeholder="Add new Subtask" id="task_subtasks" type="text" onkeydown="if(event.key === 'Enter') { event.preventDefault(); addSubtaskInput(); } else if(event.key === 'Escape') { event.preventDefault(); clearSubtaskInput(); }">
+                    <input maxlength="35" placeholder="Add new Subtask" id="task_subtasks" type="text"
+                        onkeydown="if(event.key === 'Enter') { event.preventDefault(); addSubtaskInput(); } else if(event.key === 'Escape') { event.preventDefault(); clearSubtaskInput(); }">
                     <div class="subtask_input_icon_section">
-                        <img onmousedown="clearSubtaskInput()" src="assets/img/subtasks_icon_cancel.png" alt="Storno-Icon">
+                        <img onmousedown="clearSubtaskInput()" src="assets/img/subtasks_icon_cancel.png"
+                            alt="Storno-Icon">
                         <div class="subtask_border"></div>
-                        <img onmousedown="addSubtaskInput()" src="assets/img/subtasks_icon_check.png" alt="Bestätigung-Icon">
+                        <img onmousedown="addSubtaskInput()" src="assets/img/subtasks_icon_check.png"
+                            alt="Bestätigung-Icon">
                     </div>
                     <div id="subtask_list" class="subtask_list"></div>
                 </article>
             </section>
         </form>
+         <section class="add_task_form_btns_section">
+                <article><span class="required_element">*</span>This field is required</article>
+                <article class="add_task_form_btns">
+                    <button onclick="clearTaskFormular()" class="button_white">Clear <img
+                            src="/assets/img/addtask_cancel.png" alt="Clear Button"></button>
+                    <button onclick="addTask()">Create Task <img src="/assets/img/addtask_create.png"
+                            alt="Create Button"></button>
+                </article>
+            </section>
     </main>
 
 </body>

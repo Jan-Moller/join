@@ -1,4 +1,6 @@
+
 .add_task_form_section {
+    position: relative;
     margin: 48px 0 0 96px;
     display: flex;
     align-items: flex-start;
@@ -17,6 +19,11 @@
     flex-direction: column;
     width: 440px;
     margin-bottom: 24px;
+    height: 96px;
+}
+
+.add_task_assigned_to_section {
+    height: auto;
 }
 
 .add_task_input_element label {
@@ -43,8 +50,10 @@
     font-family: Inter;
     font-weight: 400;
     font-size: 20px;
+}
 
-
+.add_task_task_description{
+    height: auto !important;
 }
 
 .add_task_priority_element:hover {
@@ -301,7 +310,7 @@
     overflow-x: hidden;
 }
 
-.subtask_item{
+.subtask_item {
     position: relative;
     display: flex;
     align-items: center;
@@ -319,7 +328,7 @@
     border: none;
     width: 100%;
     padding: 4px 16px 4px 16px;
-    height:26px;
+    height: 26px;
 }
 
 .subtask_list input:focus {
@@ -361,4 +370,19 @@
 
 .subtask_item:has(input:focus) .subtask_edit_input_icon_section_focused {
     display: flex;
+}
+
+.add_task_form_btns_section {
+    position: absolute;
+    display: flex;
+    left: 328px; 
+    bottom: 0; 
+    justify-content: space-between;
+    width: 976px;
+    margin-bottom: 79px;
+}
+
+.add_task_form_btns {
+    display: flex;
+    gap: 16px;
 }

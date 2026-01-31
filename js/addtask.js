@@ -3,9 +3,14 @@ let newTask = {
     'task_description': '',
     'task_due_date': '',
     'task_priority': '',
-    'assigned_contacts': [],
+    'assigned_contacts': [''],
     'task_category': '',
-    'subtasks': [],
+    'subtasks': [''],
+    'task_status': 'To-do'
+}
+
+function initAddTask() {
+   init('nav_item_add_task')
 }
 
 function setTaskPriority(prio) {
@@ -13,9 +18,11 @@ function setTaskPriority(prio) {
 
     if (priority.classList.contains(`${prio}` + '_task')) {
         priority.classList.remove(`${prio}` + '_task');
+        newTask.task_priority = '';
     } else {
         removeTaskPriority();
         priority.classList.add(`${prio}` + '_task');
+        newTask.task_priority = prio;
     }
 }
 
@@ -25,6 +32,7 @@ function removeTaskPriority() {
         const prio = prios[i];
         if (document.getElementById(prio + '_task').classList.contains(prio + '_task')) { document.getElementById(prio + '_task').classList.remove(prio + '_task') }
     }
+    newTask.task_priority = '';
 }
 
 function showContactsDropdown() {
@@ -60,18 +68,16 @@ function showSelectedTaskContacts() {
     for (let i = 0; i < newTask.assigned_contacts.length; i++) {
         const contact = newTask.assigned_contacts[i];
         displayContactsRef.innerHTML += `${contact}`;
-        console.log(contact);
-
     }
 }
+
 function showTaskCategoryDropdown() {
     let content = document.getElementById('category_dropdown_content');
-    let dropdown_icon_open = document.getElementById('categroy_dropdown_icon_open');
-    let dropdown_icon_close = document.getElementById('categroy_dropdown_icon_close');
+    let dropdown_icon_open = document.getElementById('category_dropdown_icon_open');
+    let dropdown_icon_close = document.getElementById('category_dropdown_icon_close');
     content.classList.toggle('show');
     dropdown_icon_open.classList.toggle('d_none');
     dropdown_icon_close.classList.toggle('d_none');
-
 }
 
 function selectTaskCategory(category) {
@@ -79,6 +85,7 @@ function selectTaskCategory(category) {
     let content = document.getElementById('category_dropdown_content');
     contentBtn.innerHTML = category;
     content.classList.toggle('show');
+    newTask.task_category = category;
 }
 
 function addSubtaskInput() {
@@ -104,9 +111,99 @@ function editSubtaskInput(i) {
     inputRef.focus();
 }
 
-function editSubtaskList(i){
+function editSubtaskList(i) {
     let subtask = document.getElementById(`subtask_${i}`);
-    newTask.subtasks[i] = subtask.value; 
+    newTask.subtasks[i] = subtask.value;
     renderSubtaskList();
 }
 
+async function addTask() {
+    checkRequiredInputElements()
+    let title = document.getElementById('task_title');
+    let description = document.getElementById('task_description');
+    let due_date = document.getElementById('task_due_date');
+
+    newTask.task_title = title.value;
+    newTask.task_description = description.value;
+    newTask.task_due_date = due_date.value;
+
+    await addTaskData()
+}
+
+function clearTaskFormular() {
+    let title = document.getElementById('task_title');
+    let description = document.getElementById('task_description');
+    let due_date = document.getElementById('task_due_date');
+    let contacts = document.getElementById('choosen_task_contacts_section');
+    let category = document.getElementById('category_dropdown_btn');
+    let subtasks = document.getElementById('subtask_list');
+    title.value = '';
+    description.value = '';
+    due_date.value = '';
+    due_date.type = 'text';
+    contacts.innerHTML = '';
+    category.innerHTML = 'Select task category';
+    subtasks.innerHTML = '';
+    clearTaskVar()
+}
+
+function clearTaskVar() {
+    newTask.assigned_contacts = '';
+    newTask.task_category = '';
+    newTask.subtasks = '';
+    removeTaskPriority();
+}
+
+function checkRequiredInputElements() {
+    let title = document.getElementById('task_title');
+    let due_date = document.getElementById('task_due_date');
+    let category = document.getElementById('category_dropdown_btn');
+    let isValid = true;
+
+    title.classList.remove('error_message');
+    due_date.classList.remove('error_message');
+    category.classList.remove('error_message');
+
+    checkRequiredTaskTitle(isValid, title)
+    checkRequiredTaskDate(isValid, due_date)
+    checkRequiredTaskCategory(isValid, category)
+
+    return isValid;
+}
+
+function checkRequiredTaskTitle(isValid, title) {
+    if (title.value == '') {
+        title.classList.add('error_message');
+        document.getElementById('title_error_msg').innerHTML = 'This field is required';
+        isValid = false;
+    }
+    else { document.getElementById('title_error_msg').innerHTML = ''; }
+    return isValid
+}
+
+function checkRequiredTaskDate(isValid, due_date) {
+    if (due_date.value == '') {
+        due_date.classList.add('error_message');
+        document.getElementById('due_date_error_msg').innerHTML = 'This field is required'
+        isValid = false;
+    }
+    else { document.getElementById('due_date_error_msg').innerHTML = ''; }
+
+    return isValid
+}
+
+function checkRequiredTaskCategory(isValid, category) {
+    if (newTask.task_category == '') {
+        category.classList.add('error_message');
+        document.getElementById('task_category_error_msg').innerHTML = 'This field is required'
+        isValid = false;
+    }
+    else { document.getElementById('task_category_error_msg').innerHTML = ''; }
+
+    return isValid
+}
+
+async function addTaskData() {
+    let userKey = sessionStorage.getItem('currentUserKey')
+    await postData(`/users/${userKey}/tasks`, data = newTask);
+}

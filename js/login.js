@@ -7,9 +7,13 @@ async function login() {
 
     if (matchingUsers && Object.keys(matchingUsers).length > 0) {
         let userKey = Object.keys(matchingUsers)[0];
-        let user = matchingUsers[userKey];
-        
-        user.password === password ? window.location.href = 'summary.html': showLoginError();
+        let currentUser = matchingUsers[userKey];
+        if (currentUser.password === password) {
+            sessionStorage.setItem('currentUserKey', userKey);
+            window.location.href = 'summary.html';
+        } else {
+            showLoginError();
+        }
     } else {
         showLoginError();
     }
