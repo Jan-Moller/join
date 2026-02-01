@@ -24,7 +24,7 @@
             <section>
                 <article class="add_task_input_element">
                     <label for="task_title">Title<span class="required_element">*</span></label>
-                    <input id="task_title" type="text" placeholder="Enter a title">
+                    <input required id="task_title" type="text" placeholder="Enter a title">
                     <span class="error_msg_text" id="title_error_msg"></span>
                 </article>
                 <article class="add_task_input_element add_task_task_description">
@@ -100,9 +100,8 @@
                 </article>
                 <article class="add_task_input_element  add_task_assigned_to_section">
                     <label>Category<span class="required_element">*</span></label>
-                    <div class="category_dropdown">
-                        <div onclick="showTaskCategoryDropdown()"
-                            class="category_dropdown_btn">
+                    <div id="category_dropdown" class="category_dropdown">
+                        <div onclick="showTaskCategoryDropdown()" class="category_dropdown_btn">
                             <span id="category_dropdown_btn">Select task category</span>
                             <img id="category_dropdown_icon_close" class="category_dropdown_icon"
                                 src="assets/img/arrow_drop_down_closed.png" alt="Pfeilbild geschlossen">
@@ -131,15 +130,21 @@
                 </article>
             </section>
         </form>
-         <section class="add_task_form_btns_section">
-                <article><span class="required_element">*</span>This field is required</article>
-                <article class="add_task_form_btns">
-                    <button onclick="clearTaskFormular()" class="button_white">Clear <img
-                            src="/assets/img/addtask_cancel.png" alt="Clear Button"></button>
-                    <button onclick="addTask()">Create Task <img src="/assets/img/addtask_create.png"
-                            alt="Create Button"></button>
-                </article>
-            </section>
+        <section class="add_task_form_btns_section">
+            <article><span class="required_element">*</span>This field is required</article>
+            <article class="add_task_form_btns">
+                <button onclick="clearTaskFormular()" class="button_white">Clear <img
+                        src="/assets/img/addtask_cancel.png" alt="Clear Button"></button>
+                <button id="task_create_btn" onclick="addTask()">Create Task <img src="/assets/img/addtask_create.png"
+                        alt="Create Button"></button>
+            </article>
+        </section>
+        <dialog id="task_dialog">
+            <div class="task_successfull_task_element">
+                <span>Task added to board</span>
+                <img src="/assets/img/board_small.png" alt="Board Icon">
+            </div>
+        </dialog>
     </main>
 
 </body>

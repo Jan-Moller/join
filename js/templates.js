@@ -20,5 +20,27 @@ function renderSubtaskList() {
         </div> 
     `
     }
+}
 
+function renderBoardTaskCard() {
+    let card = document.getElementById('board_task_card_in_progress');
+    card.innerHTML = '';
+    card.innerHTML += /*html*/ `
+
+    <article class="board_task_card">
+        <span class="board_task_card_user_story">User Story</span>
+        <h4>Kochwelt Page & Recipe Recommender</h4>
+        <p>Build start page with recipe recommendation...</p>
+        <section class="board_card_subtask_section">
+            <div class="w3-light-grey">
+                <div class="w3-blue" style="width:75%"></div>
+            </div>
+            <span class="bord_card_subtask_amount"><div>1</div>/<div>2</div><span class="board_card_subtaks_text">Subtasks</span></span>
+        </section>
+        <section>
+        
+        </section>
+    </article>
+
+    `
 }

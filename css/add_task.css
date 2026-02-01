@@ -1,4 +1,3 @@
-
 .add_task_form_section {
     position: relative;
     margin: 48px 0 0 96px;
@@ -52,7 +51,7 @@
     font-size: 20px;
 }
 
-.add_task_task_description{
+.add_task_task_description {
     height: auto !important;
 }
 
@@ -375,8 +374,8 @@
 .add_task_form_btns_section {
     position: absolute;
     display: flex;
-    left: 328px; 
-    bottom: 0; 
+    left: 328px;
+    bottom: 0;
     justify-content: space-between;
     width: 976px;
     margin-bottom: 79px;
@@ -385,4 +384,54 @@
 .add_task_form_btns {
     display: flex;
     gap: 16px;
+}
+
+.add_task_form_btns button:disabled:hover {
+    cursor: auto; 
+    background: rgba(42, 54, 71, 1);
+    box-shadow: none;
+}
+
+#task_dialog{
+    opacity: 0;
+    height: 100vh;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    padding-left: 232px; 
+}
+
+#task_dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+#task_dialog[open] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: slideUp 800ms ease-out forwards;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100vh);
+        opacity: 0;
+    }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.task_successfull_task_element {
+    padding: 25px 35px 25px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 74px;
+    width: 326px;
+    border-radius: 20px;
+    background: rgba(42, 54, 71, 1);
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+    color: white; 
 }

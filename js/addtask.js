@@ -10,7 +10,7 @@ let newTask = {
 }
 
 function initAddTask() {
-   init('nav_item_add_task')
+    init('nav_item_add_task')
 }
 
 function setTaskPriority(prio) {
@@ -118,7 +118,10 @@ function editSubtaskList(i) {
 }
 
 async function addTask() {
-    checkRequiredInputElements()
+    if (!checkRequiredInputElements()) {
+        return;
+    }
+    
     let title = document.getElementById('task_title');
     let description = document.getElementById('task_description');
     let due_date = document.getElementById('task_due_date');
@@ -127,7 +130,8 @@ async function addTask() {
     newTask.task_description = description.value;
     newTask.task_due_date = due_date.value;
 
-    await addTaskData()
+    await addTaskData();
+    showSuccessfullTaskDialog();
 }
 
 function clearTaskFormular() {
@@ -157,16 +161,16 @@ function clearTaskVar() {
 function checkRequiredInputElements() {
     let title = document.getElementById('task_title');
     let due_date = document.getElementById('task_due_date');
-    let category = document.getElementById('category_dropdown_btn');
+    let category = document.getElementById('category_dropdown');
     let isValid = true;
 
     title.classList.remove('error_message');
     due_date.classList.remove('error_message');
     category.classList.remove('error_message');
 
-    checkRequiredTaskTitle(isValid, title)
-    checkRequiredTaskDate(isValid, due_date)
-    checkRequiredTaskCategory(isValid, category)
+    isValid = checkRequiredTaskTitle(isValid, title);
+    isValid = checkRequiredTaskDate(isValid, due_date) && isValid;
+    isValid = checkRequiredTaskCategory(isValid, category) && isValid;
 
     return isValid;
 }
@@ -206,4 +210,13 @@ function checkRequiredTaskCategory(isValid, category) {
 async function addTaskData() {
     let userKey = sessionStorage.getItem('currentUserKey')
     await postData(`/users/${userKey}/tasks`, data = newTask);
+}
+
+function showSuccessfullTaskDialog() {
+    let dialog = document.getElementById('task_dialog');
+    dialog.showModal();
+    setTimeout(() => {
+        dialog.close();
+        window.location.href = 'board.html';
+    }, 2000);
 }

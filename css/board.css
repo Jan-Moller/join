@@ -1,0 +1,119 @@
+.board_table_section {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 26px;
+    padding: 48px 96px 0 96px;
+    width: 100%;
+}
+
+.board_table_element {
+    flex: 1;
+    min-width: 0;
+}
+
+.board_table_header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: auto;
+    width: auto;
+    padding: 0 0 15px 0;
+    background: none;
+    box-shadow: none;
+    color: rgba(66, 82, 110, 1);
+
+
+}
+
+.board_table_element h3 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-family: Inter !important;
+    font-weight: 700 !important;
+    font-size: 20px !important;
+}
+
+.board_table_element img {
+    cursor: pointer;
+}
+
+
+.board_no_task_placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 48px;
+    border-radius: 10px;
+    border: 1px dashed rgba(168, 168, 168, 1);
+    background-color: rgba(231, 231, 231, 1);
+    color: rgba(168, 168, 168, 1);
+}
+
+.board_task_card {
+    background-color: white;
+    border-radius: 24px;
+    padding: 16px;
+    gap: 10px;
+}
+
+.board_task_card_user_story {
+    background-color: rgba(0, 56, 255, 1);
+    color: white;
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px
+}
+
+.board_task_card h4 {
+    font-family: Inter;
+    font-weight: 700;
+    font-size: 16px;
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-top: 24px;
+}
+
+.board_task_card p {
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(168, 168, 168, 1);
+    margin-block-start: 0;
+    margin-block-end: 0;
+    margin-top: 8px;
+}
+
+.board_card_subtask_section {
+    display: flex;
+    align-items: center;
+    margin-top: 30px; 
+}
+
+.bord_card_subtask_amount {
+    display: flex;
+    align-items: center;
+}
+
+.w3-light-grey {
+    width: 50%;
+    color: #000 !important;
+    background-color: #f1f1f1 !important;
+    border-radius: 16px;
+    margin-right: 12px; 
+}
+
+.w3-blue {
+    color: #fff !important;
+    background-color: rgba(69, 137, 255, 1);
+    height: 8px;
+    width: 20%;
+    border-radius: 16px;
+}
+
+
+
+
+
+.board_card_subtaks_text{
+    margin-left: 5px; 
+}

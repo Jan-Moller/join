@@ -40,7 +40,6 @@
     gap: 18px;
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
 }
 
 .summary_kpi_element_mid_size img {
@@ -62,6 +61,26 @@
     text-align: center;
 }
 
+.summary_kpi_element_mid_size:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgba(42, 54, 71, 1);
+    color: white;
+}
+
+.summary_kpi_element_mid_size:hover span,
+.summary_kpi_element_mid_size:hover h2 {
+    color: white;
+}
+
+.summary_kpi_element_mid_size:hover img[src*="pen_small"] {
+    content: url('../assets/img/pen_small_white.png');
+}
+
+.summary_kpi_element_mid_size:hover img[src*="check_mark"] {
+    content: url('../assets/img/check_mark_todo_white.png');
+}
+
 .summary_kpi_element_large {
     display: flex;
     align-items: center;
@@ -73,7 +92,19 @@
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
     border-radius: 30px;
+}
+
+.summary_kpi_element_large:hover {
     cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgba(42, 54, 71, 1);
+    color: white;
+}
+
+.summary_kpi_element_large:hover span,
+.summary_kpi_element_large:hover h2,
+.summary_kpi_element_large:hover h3 {
+    color: white;
 }
 
 .summary_kpi_element_large img {
@@ -116,7 +147,6 @@
     gap: 13px;
     background: rgba(255, 255, 255, 1);
     box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
 }
 
 .summary_kpi_element_small h2 {
@@ -134,13 +164,24 @@ font-size: 20px;
 text-align: center;
 }
 
+.summary_kpi_element_small:hover {
+    cursor: pointer;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    background: rgba(42, 54, 71, 1);
+    color: white;
+}
+
+.summary_kpi_element_small:hover span,
+.summary_kpi_element_small:hover h2 {
+    color: white;
+}
+
 .summary_kpi_element_urgent_tasks {
     display: flex;
     align-items: center;
     justify-content: center;
     height: 168px;
     gap: 18px;
-    cursor: pointer;
 }
 
 .summary_kpi_element_large h3 {

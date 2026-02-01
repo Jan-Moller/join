@@ -7,6 +7,7 @@
     <title>Summary</title>
     <script src="script.js"></script>
     <script src="/js/summary.js"></script>
+    <script src="/js/templates.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/summary.css">
@@ -24,48 +25,48 @@
         <section class="summary_content_section">
             <article class="summary_kpis_section">
                 <section class="summary_kpis_row">
-                    <article class="summary_kpi_element_mid_size">
+                    <article class="summary_kpi_element_mid_size"  onclick="forwardToBoardHTML()">
                         <img src="assets/img/pen_small.png" alt="Stift-Symbol">
                         <div>
-                            <h2>0</h2>
-                            <span>To-do</span>
+                            <h2 id="summary_task_to_do">0</h2>
+                            <span id="summary_task_to_do">To-do</span>
                         </div>
                     </article>
-                    <article class="summary_kpi_element_mid_size">
+                    <article class="summary_kpi_element_mid_size"  onclick="forwardToBoardHTML()">
                         <img src="assets/img/check_mark_todo.png" alt="Check-Symbol">
                         <div>
-                            <h2>0</h2>
+                            <h2 id="summary_task_done">0</h2>
                             <span>Done</span>
                         </div>
                     </article>
                 </section>
                 <section class="summary_kpis_row">
-                    <article class="summary_kpi_element_large">
+                    <article class="summary_kpi_element_large" onclick="forwardToBoardHTML()">
                         <article class="summary_kpi_element_urgent_tasks">
                             <img src="assets/img/important_small.png" alt="Important-Symbol">
                             <div>
-                                <h2>0</h2>
+                                <h2 id="summary_task_urgent">0</h2>
                                 <span>Urgent</span>
                             </div>
                         </article>
                         <article class="summary_kpi_element_large_border"></article>
                         <article>
-                            <h3>October 16, 2022</h3>
+                            <h3 id="summary_task_due_date">No urgent deadline</h3>
                             <span class="mt_16">Upcoming Deadline</span>
                         </article>
                     </article>
                 </section>
                 <section class="summary_kpis_row">
-                    <article class="summary_kpi_element_small">
-                        <h2>0</h2>
+                    <article class="summary_kpi_element_small"  onclick="forwardToBoardHTML()">
+                        <h2 id="summary_task_in_board">0</h2>
                         <span>Tasks in <br> Board</span>
                     </article>
-                    <article class="summary_kpi_element_small">
-                        <h2>0</h2>
+                    <article class="summary_kpi_element_small"  onclick="forwardToBoardHTML()">
+                        <h2 id="summary_task_in_progress">0</h2>
                         <span>Tasks in <br> Progress</span>
                     </article>
-                    <article class="summary_kpi_element_small">
-                        <h2>0</h2>
+                    <article class="summary_kpi_element_small"  onclick="forwardToBoardHTML()">
+                        <h2 id="summary_task_awaiting_feedback">0</h2>
                         <span>Awaiting <br> Feedback</span>
                     </article>
                 </section>
