@@ -3,10 +3,10 @@ let newTask = {
     'task_description': '',
     'task_due_date': '',
     'task_priority': '',
-    'assigned_contacts': [''],
+    'assigned_contacts': [],
     'task_category': '',
-    'subtasks': [''],
-    'task_status': 'To-do'
+    'subtasks': [],
+    'task_status': 'to-do'
 }
 
 function initAddTask() {
@@ -91,7 +91,7 @@ function selectTaskCategory(category) {
 function addSubtaskInput() {
     let inputRef = document.getElementById('task_subtasks');
     let subtask = inputRef.value;
-    newTask.subtasks.push(subtask);
+    newTask.subtasks.push( {"subtask": subtask, "subtask_status": "to_do"});
     renderSubtaskList();
     inputRef.value = '';
 }
@@ -113,7 +113,7 @@ function editSubtaskInput(i) {
 
 function editSubtaskList(i) {
     let subtask = document.getElementById(`subtask_${i}`);
-    newTask.subtasks[i] = subtask.value;
+    newTask.subtasks[i].subtask = subtask.value;
     renderSubtaskList();
 }
 
@@ -213,6 +213,10 @@ async function addTaskData() {
 }
 
 function showSuccessfullTaskDialog() {
+    let addTaskBoardDialog = document.getElementById('add_task_board_dialog');
+    if (addTaskBoardDialog && addTaskBoardDialog.open) {
+        addTaskBoardDialog.close();
+    }
     let dialog = document.getElementById('task_dialog');
     dialog.showModal();
     setTimeout(() => {

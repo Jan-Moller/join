@@ -1,3 +1,40 @@
+dialog {
+    outline: none; 
+    border: none; 
+    border-radius: 30px;
+    position: relative;
+    width: 75%;
+    padding: 48px;
+}
+
+.headline_section_board {
+    justify-content: space-between;
+    margin-right: 96px;
+}
+
+.board_headline_functions{
+    display: flex;
+    align-items: center;
+    gap: 32px; 
+}
+
+.board_search_section {
+    position: relative;
+}
+
+.board_search_section img{
+    position: absolute;
+    right: 16px;
+    top: 10px;
+    padding-left: 16px;
+    border-left: 1px solid rgba(209, 209, 209, 1);
+    cursor: pointer;
+}
+
+.add_task_icon {
+    margin-left: 10px;
+}
+
 .board_table_section {
     display: flex;
     align-items: flex-start;
@@ -55,10 +92,20 @@
     border-radius: 24px;
     padding: 16px;
     gap: 10px;
+    margin-bottom: 16px;
+    cursor: pointer;
+
 }
 
 .board_task_card_user_story {
     background-color: rgba(0, 56, 255, 1);
+    color: white;
+    border-radius: 8px;
+    padding: 4px 16px 4px 16px
+}
+
+.board_task_card_technical_task {
+    background: rgba(31, 215, 193, 1);
     color: white;
     border-radius: 8px;
     padding: 4px 16px 4px 16px
@@ -81,12 +128,18 @@
     margin-block-start: 0;
     margin-block-end: 0;
     margin-top: 8px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .board_card_subtask_section {
     display: flex;
     align-items: center;
-    margin-top: 30px; 
+    margin-top: 30px;
 }
 
 .bord_card_subtask_amount {
@@ -99,7 +152,7 @@
     color: #000 !important;
     background-color: #f1f1f1 !important;
     border-radius: 16px;
-    margin-right: 12px; 
+    margin-right: 12px;
 }
 
 .w3-blue {
@@ -110,10 +163,52 @@
     border-radius: 16px;
 }
 
+.board_card_subtaks_text {
+    margin-left: 5px;
+}
 
+.assigned_contacts_to_task {
+    display: flex;
+    align-items: center;
+}
 
+.assigned_contacts_section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 24px;
+}
 
+.contact_initials {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    width: 32px;
+    border: 2px solid white;
+    border-radius: 45%;
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+    background: rgba(0, 190, 232, 1);
+}
 
-.board_card_subtaks_text{
-    margin-left: 5px; 
+.contact_initials:not(:first-child) {
+    margin-left: -10px;
+}
+
+.detailed_task_card_dialog{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 525px;
+    min-height: 750px;
+    box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.16);
+    border: none;
+    border-radius: 30px;
+}
+
+.detailed_task_card_dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.4);
 }

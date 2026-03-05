@@ -4,9 +4,10 @@ function renderSubtaskList() {
 
     for (let i = 0; i < newTask.subtasks.length; i++) {
         const subtask = newTask.subtasks[i];
-        listRef.innerHTML += /*html*/`
+        if (typeof subtask === 'object' && subtask.subtask) {
+            listRef.innerHTML += /*html*/`
         <div class="subtask_item">
-            <input maxlength="35" id="subtask_${i}" type="text" value="${subtask}">
+            <input maxlength="35" id="subtask_${i}" type="text" value="${subtask.subtask}">
             <div class="subtask_edit_input_icon_section">
                 <img onclick="editSubtaskInput('${i}')" src="assets/img/subtasks_icon_edit.png" alt="Edit-Icon">
                 <div class="subtask_border"></div>
@@ -18,27 +19,30 @@ function renderSubtaskList() {
                 <img onmousedown="editSubtaskList('${i}')" src="assets/img/subtasks_icon_check.png" alt="Bestätigung-Icon">
             </div>
         </div> 
-    `
+    `;
+        }
     }
 }
 
-function renderBoardTaskCard() {
-    let card = document.getElementById('board_task_card_in_progress');
-    card.innerHTML = '';
+function renderBoardTaskCard(task, categoryClass, total_subtasks, totalSubtasksDone, subtaskRatio, taskPrio, contactInitials, taskIndex) {
+    let card = document.getElementById(`board_task_card_${task.task_status}`);
     card.innerHTML += /*html*/ `
 
-    <article class="board_task_card">
-        <span class="board_task_card_user_story">User Story</span>
-        <h4>Kochwelt Page & Recipe Recommender</h4>
-        <p>Build start page with recipe recommendation...</p>
+    <article class="board_task_card" onclick="openDetailedTaskCard(${taskIndex})">
+        <span class="board_task_card_${categoryClass}">${task.task_category}</span>
+        <h4>${task.task_title}</h4>
+        <p>${task.task_description}</p>
         <section class="board_card_subtask_section">
             <div class="w3-light-grey">
-                <div class="w3-blue" style="width:75%"></div>
+                <div class="w3-blue" style="width:${subtaskRatio}%"></div>
             </div>
-            <span class="bord_card_subtask_amount"><div>1</div>/<div>2</div><span class="board_card_subtaks_text">Subtasks</span></span>
+            <span class="bord_card_subtask_amount"><div>${totalSubtasksDone}</div>/<div>${total_subtasks}</div><span class="board_card_subtaks_text">Subtasks</span></span>
         </section>
-        <section>
-        
+        <section class="assigned_contacts_section">
+            <article class="assigned_contacts_to_task">  
+                ${contactInitials}
+            </article>
+             ${taskPrio}
         </section>
     </article>
 

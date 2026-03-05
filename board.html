@@ -8,24 +8,36 @@
     <script src="script.js"></script>
     <script src="js/board.js"></script>
     <script src="js/templates.js"></script>
+    <script src="js/addtask.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/css/fonts.css">
     <link rel="stylesheet" href="/css/board.css">
+    <link rel="stylesheet" href="/css/add_task.css">
 </head>
 
 <body onload="initBoard()">
     <aside w3-include-html="/templates/navigation_side.html"></aside>
     <main class="bg_main">
         <header w3-include-html="/templates/header.html"></header>
-        <section class="headline_section">
+        <dialog id="add_task_board_dialog">
+            <section w3-include-html="/templates/add_task_template.html"></section>
+        </dialog>
+        <section class="headline_section headline_section_board">
             <h1>Board</h1>
+            <article class="board_headline_functions">
+                <div class="board_search_section">
+                    <input type="text" placeholder="Find Task" name="" id="task_search_input">
+                    <img onclick="searchForExistingTask()" src="assets/img/search.png" alt="Suchfunktion">
+                </div>
+                <button onclick="openAddTaskDialog()"><span>Add task</span> <img class="add_task_icon" src="/assets/img/add_task.png" alt="Plus Symbol"></button>
+            </article>
         </section>
         <section class="board_table_section">
             <article class="board_table_element">
                 <header class="board_table_header">
                     <h3>To do</h3><img src="/assets/img/board_add_task.png" alt="Add Task Symbol">
                 </header>
-                <section>
+                <section id="board_task_card_to-do">
                     <article>
                         <div class="board_no_task_placeholder"><span>No tasks To do</span></div>
                     </article>
@@ -45,7 +57,7 @@
                 <header class="board_table_header">
                     <h3>Await Feedback</h3><img src="/assets/img/board_add_task.png" alt="Add Task Symbol">
                 </header>
-                <section>
+                <section id="board_task_card_await_feedback">
                     <article>
                         <div class="board_no_task_placeholder"><span>No tasks To do</span></div>
                     </article>
@@ -55,7 +67,8 @@
                 <header class="board_table_header">
                     <h3>Done</h3><img src="/assets/img/board_add_task.png" alt="Add Task Symbol">
                 </header>
-                <section>
+
+                <section id="board_task_card_done">
                     <article>
                         <div class="board_no_task_placeholder"><span>No tasks To do</span></div>
                     </article>
@@ -63,6 +76,14 @@
             </article>
         </section>
     </main>
+    <dialog id="task_dialog">
+        <div class="task_successfull_task_element">
+            <span>Task added to board</span>
+            <img src="/assets/img/board_small.png" alt="Board Icon">
+        </div>
+    </dialog>
+
+    <dialog class="detailed_task_card_dialog" id="detailed_task_card_dialog"></dialog>
 
 </body>
 

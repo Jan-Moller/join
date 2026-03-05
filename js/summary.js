@@ -22,7 +22,6 @@ async function getCurrentTaskData() {
             "task_priority": tasksResponse[taskKey].task_priority,
         }
         )
-        console.log(tasks);
     }
     renderTaskSummary(tasks);
 }

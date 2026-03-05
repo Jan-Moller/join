@@ -17,135 +17,14 @@
     <aside w3-include-html="/templates/navigation_side.html"></aside>
     <main class="bg_main">
         <header w3-include-html="/templates/header.html"></header>
-        <section class="headline_section">
-            <h1>Add Task</h1>
-        </section>
-        <form class="add_task_form_section">
-            <section>
-                <article class="add_task_input_element">
-                    <label for="task_title">Title<span class="required_element">*</span></label>
-                    <input required id="task_title" type="text" placeholder="Enter a title">
-                    <span class="error_msg_text" id="title_error_msg"></span>
-                </article>
-                <article class="add_task_input_element add_task_task_description">
-                    <label for="task_description">Description</label>
-                    <textarea id="task_description" placeholder="Enter a Description"></textarea>
-                </article>
-                <article class="add_task_input_element">
-                    <label for="task_due_date">Due Date<span class="required_element">*</span></label>
-                    <input id="task_due_date" type="text" placeholder="dd/mm/yyyy" onfocus="(this.type='date')"
-                        onblur="if(!this.value)this.type='text'">
-                    <span class="error_msg_text" id="due_date_error_msg"></span>
-                </article>
-            </section>
-            <span class="add_task_form_border"></span>
-            <section>
-                <article class="add_task_input_element">
-                    <label>Priority</label>
-                    <section class="addtask_priority_btns">
-                        <div class="add_task_priority_element" onclick="setTaskPriority('urgent')" id="urgent_task">
-                            Urgent <img src="assets/img/urgent_prio_icon.png" alt="Urgent Icon"></div>
-                        <div class="add_task_priority_element" onclick="setTaskPriority('medium')" id="medium_task">
-                            Medium <img src="assets/img/medium_prio_icon.png" alt="Medium Icon"></div>
-                        <div class="add_task_priority_element" onclick="setTaskPriority('low')" id="low_task">Low
-                            <img src="assets/img/low_prio_icon.png" alt="Low Icon">
-                        </div>
-                    </section>
-                </article>
-                <article class="add_task_input_element add_task_assigned_to_section">
-                    <label>Assigned to</label>
-                    <div class="contacts_dropdown">
-                        <div class="contacts_dropdown_wrapper">
-                            <input type="text" onclick="showContactsDropdown()" class="contacts_dropdown_btn"
-                                placeholder="Select contacts to assign">
-                            <img id="contacts_dropdown_icon_close" class="contacts_dropdown_icon"
-                                src="assets/img/arrow_drop_down_closed.png" alt="Pfeilbild geschlossen">
-                            <img id="contacts_dropdown_icon_open" class="contacts_dropdown_icon d_none"
-                                src="assets/img/arrow_drop_down_open.png" alt="Pfeilbild offen">
-                        </div>
-                        <article id="choosen_task_contacts_section" class="choosen_task_contacts_section"></article>
-                        <div id="contacts_dropdown_content" class="contacts_dropdown_content">
-                            <article class="task_contact_item" id="contact_1" onclick="selectTaskContact('contact_1')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_2" onclick="selectTaskContact('contact_2')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_3" onclick="selectTaskContact('contact_3')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_4" onclick="selectTaskContact('contact_4')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_5" onclick="selectTaskContact('contact_5')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_6" onclick="selectTaskContact('contact_6')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                        </div>
-                    </div>
-                </article>
-                <article class="add_task_input_element  add_task_assigned_to_section">
-                    <label>Category<span class="required_element">*</span></label>
-                    <div id="category_dropdown" class="category_dropdown">
-                        <div onclick="showTaskCategoryDropdown()" class="category_dropdown_btn">
-                            <span id="category_dropdown_btn">Select task category</span>
-                            <img id="category_dropdown_icon_close" class="category_dropdown_icon"
-                                src="assets/img/arrow_drop_down_closed.png" alt="Pfeilbild geschlossen">
-                            <img id="category_dropdown_icon_open" class="category_dropdown_icon d_none"
-                                src="assets/img/arrow_drop_down_open.png" alt="Pfeilbild offen">
-                        </div>
-                        <div id="category_dropdown_content" class="category_dropdown_content">
-                            <span onclick="selectTaskCategory('Technical Task')">Technical Task</span>
-                            <span onclick="selectTaskCategory('User Story')">User Story</span>
-                        </div>
-                    </div>
-                    <span class="error_msg_text" id="task_category_error_msg"></span>
-                </article>
-                <article class="add_task_input_element">
-                    <label for="task_subtasks">Subtasks</label>
-                    <input maxlength="35" placeholder="Add new Subtask" id="task_subtasks" type="text"
-                        onkeydown="if(event.key === 'Enter') { event.preventDefault(); addSubtaskInput(); } else if(event.key === 'Escape') { event.preventDefault(); clearSubtaskInput(); }">
-                    <div class="subtask_input_icon_section">
-                        <img onmousedown="clearSubtaskInput()" src="assets/img/subtasks_icon_cancel.png"
-                            alt="Storno-Icon">
-                        <div class="subtask_border"></div>
-                        <img onmousedown="addSubtaskInput()" src="assets/img/subtasks_icon_check.png"
-                            alt="Bestätigung-Icon">
-                    </div>
-                    <div id="subtask_list" class="subtask_list"></div>
-                </article>
-            </section>
-        </form>
-        <section class="add_task_form_btns_section">
-            <article><span class="required_element">*</span>This field is required</article>
-            <article class="add_task_form_btns">
-                <button onclick="clearTaskFormular()" class="button_white">Clear <img
-                        src="/assets/img/addtask_cancel.png" alt="Clear Button"></button>
-                <button id="task_create_btn" onclick="addTask()">Create Task <img src="/assets/img/addtask_create.png"
-                        alt="Create Button"></button>
-            </article>
-        </section>
-        <dialog id="task_dialog">
-            <div class="task_successfull_task_element">
-                <span>Task added to board</span>
-                <img src="/assets/img/board_small.png" alt="Board Icon">
-            </div>
-        </dialog>
+        <section w3-include-html="/templates/add_task_template.html"></section>
     </main>
+    <dialog id="task_dialog">
+        <div class="task_successfull_task_element">
+            <span>Task added to board</span>
+            <img src="/assets/img/board_small.png" alt="Board Icon">
+        </div>
+    </dialog>
 
 </body>
 
