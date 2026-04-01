@@ -1,3 +1,7 @@
+ body:has(dialog[open]) {
+    overflow: hidden
+}
+
 dialog {
     outline: none;
     border: none;
@@ -195,6 +199,20 @@ dialog {
 
 .contact_initials:not(:first-child) {
     margin-left: -10px;
+}
+
+.contact_initials_edit_view {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 32px;
+    width: 32px;
+    border: 2px solid white;
+    border-radius: 45%;
+    font-weight: 400;
+    font-size: 16px;
+    color: white;
+    background: rgba(0, 190, 232, 1);
 }
 
 .detailed_task_card_dialog {

@@ -1,4 +1,5 @@
 let tasks = [];
+let currentTask = '';
 
 function initBoard() {
     init('nav_item_board');
@@ -22,7 +23,9 @@ function loadCurrentUser() {
 }
 
 async function getAllTaskData(userKey) {
+    tasks = [];
     let tasksResponse = await getData(`/users/${userKey}/tasks`);
+    if (!tasksResponse) return;
     let taskKeyArray = Object.keys(tasksResponse);
     for (let i = 0; i < taskKeyArray.length; i++) {
         const taskKey = taskKeyArray[i];
@@ -132,7 +135,7 @@ function openDetailedTaskCard(taskIndex) {
     task.task_category === 'Technical Task' ? categoryClass = 'technical_task' : categoryClass = 'user_story';
     let due_date = formatDate(task.task_due_date);
     let taskPriorityImg = task.task_priority ? `<img src="assets/img/${task.task_priority}_prio_icon.png" alt="Priorität: ${task.task_priority}">` : '';
-    let taskPriority = task.task_priority ? task.task_priority.charAt(0).toUpperCase() +  task.task_priority.substring(1).toLowerCase() : 'None';
+    let taskPriority = task.task_priority ? task.task_priority.charAt(0).toUpperCase() + task.task_priority.substring(1).toLowerCase() : 'None';
     let assignedContactsHTML = createDetailedTaskContactListHTML(task.assigned_contacts)
     let subtask = createDetailedTaskSubtaskHTML(task.subtasks)
     renderDetailedTaskCard(taskIndex, task, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask);
@@ -161,6 +164,19 @@ function createDetailedTaskContactListHTML(contacts) {
         return contactList;
     } else { return '' };
 }
+
+function createDetailedTaskContactListHTMLEditView(contacts) {
+    let contactList = '';
+    if (contacts) {
+        for (let i = 0; i < contacts.length; i++) {
+            const contact = contacts[i];
+            contactList += /*html*/ `
+           <div class="contact_initials_edit_view">${contact}</div>`
+        }
+        return contactList;
+    } else { return '' };
+}
+
 
 function createDetailedTaskSubtaskHTML(subtasks) {
     let subtaskHTML = '';
@@ -203,33 +219,60 @@ function openDetailedTaskCardEditView(taskIndex) {
     let cardEditView = document.getElementById('detailed_task_card_dialog_edit_view');
     card.close();
     cardEditView.showModal();
-    let task = tasks[taskIndex];
-    task.task_category === 'Technical Task' ? categoryClass = 'technical_task' : categoryClass = 'user_story';
-    let due_date = task.task_due_date;
-    let taskPriorityImg = task.task_priority ? `<img src="assets/img/${task.task_priority}_prio_icon.png" alt="Priorität: ${task.task_priority}">` : '';
-    let taskPriority = task.task_priority ? task.task_priority.charAt(0).toUpperCase() +  task.task_priority.substring(1).toLowerCase() : 'None';
-    let assignedContactsHTML = createDetailedTaskContactListHTML(task.assigned_contacts);
-    let subtask = createDetailedTaskSubtaskHTML(task.subtasks);
-    renderDetailedTaskCardEditView(taskIndex, task, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask);
-    setCurrentPriorityInEditView(task.task_priority);
+    currentTask = tasks[taskIndex];
+    currentTask.task_category === 'Technical Task' ? categoryClass = 'technical_task' : categoryClass = 'user_story';
+    let due_date = currentTask.task_due_date;
+    let taskPriorityImg = currentTask.task_priority ? `<img src="assets/img/${currentTask.task_priority}_prio_icon.png" alt="Priorität: ${currentTask.task_priority}">` : '';
+    let taskPriority = currentTask.task_priority ? currentTask.task_priority.charAt(0).toUpperCase() + currentTask.task_priority.substring(1).toLowerCase() : 'None';
+    let assignedContactsHTML = createDetailedTaskContactListHTMLEditView(currentTask.assigned_contacts);
+    let subtask = createDetailedTaskSubtaskHTML(currentTask.subtasks);
+    renderDetailedTaskCardEditView(cardEditView, taskIndex, currentTask, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask);
+    setCurrentPriorityInEditView(currentTask.task_priority);
     console.log(tasks);
-    
+}
+
+async function setTaskChanges() {
+    let cardEditView = document.getElementById('detailed_task_card_dialog_edit_view');
+    let changedTask = {};
+    let title = document.getElementById('task_title_edit_view');
+    let description = document.getElementById('task_description_edit_view');
+    let date = document.getElementById('task_date_edit_view');
+    let prio = currentTask.task_priority;
+
+    changedTask.assigned_contacts = currentTask.assigned_contacts,
+        changedTask.subtasks = currentTask.subtasks,
+        changedTask.task_category = currentTask.task_category,
+        changedTask.task_description = description.value,
+        changedTask.task_due_date = date.value,
+        changedTask.task_priority = prio,
+        changedTask.task_status = currentTask.task_status,
+        changedTask.task_title = title.value
+
+    await changeTaskData(currentTask.task_id, changedTask);
+    cardEditView.close();
+}
+
+async function changeTaskData(task_id, changedTask) {
+    let userKey = sessionStorage.getItem('currentUserKey');
+    await putData(`/users/${userKey}/tasks/${task_id}/`, data = changedTask);
+    await getAllTaskData(userKey);
+    renderAllTasks();
 }
 
 async function editTaskPriority(prio, taskIndex) {
     let priority = document.getElementById('board_' + `${prio}` + '_task');
-    let userKey = loadCurrentUser();
 
     if (priority.classList.contains('board_' + `${prio}` + '_task')) {
         priority.classList.remove('board_' + `${prio}` + '_task');
-        tasks[taskIndex].task_priority = '';
-        await putData(`/users/${userKey}/tasks/${tasks[taskIndex].task_id}/task_priority`, '')
+        currentTask.task_priority = '';
     } else {
         removeBoardTaskPriority(taskIndex);
         priority.classList.add('board_' + `${prio}` + '_task');
-        tasks[taskIndex].task_priority = prio;
-        await putData(`/users/${userKey}/tasks/${tasks[taskIndex].task_id}/task_priority`, prio)
+        currentTask.task_priority = prio;
     }
+
+    console.log(currentTask);
+
 }
 
 function removeBoardTaskPriority(taskIndex) {

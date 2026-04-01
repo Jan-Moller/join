@@ -44,6 +44,15 @@ function showContactsDropdown() {
     dropdown_icon_close.classList.toggle('d_none');
 }
 
+function showContactsDropdownEdit() {
+    let content = document.getElementById('contacts_dropdown_content_edit');
+    let dropdown_icon_open = document.getElementById('contacts_dropdown_icon_open_edit');
+    let dropdown_icon_close = document.getElementById('contacts_dropdown_icon_close_edit');
+    content.classList.toggle('show');
+    dropdown_icon_open.classList.toggle('d_none');
+    dropdown_icon_close.classList.toggle('d_none');
+}
+
 function selectTaskContact(id) {
     let contactRef = document.getElementById(id);
     let img = contactRef.querySelector('img');

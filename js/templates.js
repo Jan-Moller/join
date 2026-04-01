@@ -93,7 +93,7 @@ function renderDetailedTaskCard(taskIndex, task, categoryClass, due_date, taskPr
     `
 }
 
-function renderDetailedTaskCardEditView(taskIndex, task, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask) {
+function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask) {
     let card = document.getElementById('detailed_task_card_dialog_edit_view');
     card.innerHTML = '';
     card.innerHTML = /*html*/ `
@@ -104,17 +104,17 @@ function renderDetailedTaskCardEditView(taskIndex, task, categoryClass, due_date
         </header>
         <article class="detailed_card_edit_view_info_article">
             <span>Title</span>
-            <input class="" value="${task.task_title}">
+            <input  id="task_title_edit_view" value="${task.task_title}">
             <div class="edit_view_error_message"></div>
         </article>
         <article class="detailed_card_edit_view_info_article">
             <span>Description</span>
-            <input value="${task.task_description}">
+            <input id="task_description_edit_view" value="${task.task_description}">
             <div class="edit_view_error_message"></div>
         </article>
        <article class="detailed_card_edit_view_info_article">
                 <span>Due Date</span>
-                <input type="date" value="${due_date}">
+                <input id="task_date_edit_view" type="date" value="${due_date}">
         </article>
             <article class="detailed_task_card_infos detailed_task_card_info_prio">
                 <span class="detailed_task_subheadline">Priority:</span>
@@ -130,21 +130,60 @@ function renderDetailedTaskCardEditView(taskIndex, task, categoryClass, due_date
             </article>
             <article>
                 <span class="detailed_task_subheadline">Assigned To:</span>
-                <div>${assignedContactsHTML}</div>
+                 <section class="contacts_dropdown">
+                        <div class="contacts_dropdown_wrapper" onclick="showContactsDropdownEdit()">
+                            <input type="text" class="contacts_dropdown_btn"
+                                placeholder="Select contacts to assign" readonly>
+                            <img id="contacts_dropdown_icon_close_edit" class="contacts_dropdown_icon"
+                                src="assets/img/arrow_drop_down_closed.png" alt="Pfeilbild geschlossen">
+                            <img id="contacts_dropdown_icon_open_edit" class="contacts_dropdown_icon d_none"
+                                src="assets/img/arrow_drop_down_open.png" alt="Pfeilbild offen">
+                        </div>
+                        <article id="choosen_task_contacts_section" class="choosen_task_contacts_section"></article>
+                        <div id="contacts_dropdown_content_edit" class="contacts_dropdown_content">
+                            <article class="task_contact_item" id="contact_1" onclick="selectTaskContact('contact_1')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_2" onclick="selectTaskContact('contact_2')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_3" onclick="selectTaskContact('contact_3')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_4" onclick="selectTaskContact('contact_4')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_5" onclick="selectTaskContact('contact_5')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                            <article class="task_contact_item" id="contact_6" onclick="selectTaskContact('contact_6')">
+                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
+                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
+                                    alt="Bild einer Dropbox">
+                            </article>
+                        </div>
+                    </section>
+                    <section class="assigned_contacts_to_task">  
+                        ${assignedContactsHTML}
+                    </section>
             </article>
              <article>
                 <span class="detailed_task_subheadline">Subtask:</span>
                 <div>${subtask}</div>
             </article>
             <footer class="detailed_task_card_footer">
-                <article onclick="deleteTaskFromBoard('${task.task_id}', '${taskIndex}' )" class="detailed_task_card_footer_article">
-                    <img src="/assets/img/subtasks_icon_delete.png" alt="Löschen-Symbol">
-                    <span>Delete</span>
-                </article>
-                <span class="footer_border"></span>
-                <article onclick="openDetailedTaskCardEditView()" class="detailed_task_card_footer_article">
-                    <img src="/assets/img/subtasks_icon_edit.png" alt="Bearbeitungssymbol">
-                    <span>Edit</span>
+                <article onclick="setTaskChanges()" class="detailed_task_card_footer_article">
+                    <button>Ok ✓</button>
                 </article>
             </footer>
     </article>
