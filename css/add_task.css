@@ -58,7 +58,6 @@
 .add_task_priority_element:hover {
     cursor: pointer;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
-
 }
 
 .urgent_task {
