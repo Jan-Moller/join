@@ -26,10 +26,10 @@
             <h1>Board</h1>
             <article class="board_headline_functions">
                 <div class="board_search_section">
-                    <input type="text" placeholder="Find Task" name="" id="task_search_input">
+                    <input onkeyup="searchForExistingTask()" type="text" placeholder="Find Task" name="" id="task_search_input">
                     <img onclick="searchForExistingTask()" src="assets/img/search.png" alt="Suchfunktion">
                 </div>
-                <button onclick="openAddTaskDialog()"><span>Add task</span> <img class="add_task_icon" src="/assets/img/add_task.png" alt="Plus Symbol"></button>
+                <button onclick="openAddTaskDialog('to-do')"><span>Add task</span> <img class="add_task_icon" src="/assets/img/add_task.png" alt="Plus Symbol"></button>
             </article>
         </section>
         <section class="board_table_section">
@@ -45,7 +45,7 @@
             </article>
             <article class="board_table_element">
                 <header class="board_table_header">
-                    <h3>In progress</h3><img src="/assets/img/board_add_task.png" alt="Add Task Symbol">
+                    <h3>In progress</h3><img onclick="openAddTaskDialog('in_progress')" src="/assets/img/board_add_task.png" alt="Add Task Symbol">
                 </header>
                 <section id="board_task_card_in_progress">
                     <article>
@@ -55,7 +55,7 @@
             </article>
             <article class="board_table_element">
                 <header class="board_table_header">
-                    <h3>Await Feedback</h3><img src="/assets/img/board_add_task.png" alt="Add Task Symbol">
+                    <h3>Await Feedback</h3><img onclick="openAddTaskDialog('await_feedback')" src="/assets/img/board_add_task.png" alt="Add Task Symbol">
                 </header>
                 <section id="board_task_card_await_feedback">
                     <article>
@@ -65,7 +65,7 @@
             </article>
             <article class="board_table_element">
                 <header class="board_table_header">
-                    <h3>Done</h3><img src="/assets/img/board_add_task.png" alt="Add Task Symbol">
+                    <h3>Done</h3><img onclick="openAddTaskDialog('done')" src="/assets/img/board_add_task.png" alt="Add Task Symbol">
                 </header>
 
                 <section id="board_task_card_done">

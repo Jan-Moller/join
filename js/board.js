@@ -6,9 +6,10 @@ function initBoard() {
     renderTaskBoard();
 }
 
-function openAddTaskDialog() {
+function openAddTaskDialog(task_status) {
     let dialog = document.getElementById('add_task_board_dialog');
     dialog.showModal();
+    newTask.task_status = task_status;
 }
 
 async function renderTaskBoard() {
@@ -137,7 +138,7 @@ function openDetailedTaskCard(taskIndex) {
     let taskPriorityImg = task.task_priority ? `<img src="assets/img/${task.task_priority}_prio_icon.png" alt="Priorität: ${task.task_priority}">` : '';
     let taskPriority = task.task_priority ? task.task_priority.charAt(0).toUpperCase() + task.task_priority.substring(1).toLowerCase() : 'None';
     let assignedContactsHTML = createDetailedTaskContactListHTML(task.assigned_contacts)
-    let subtask = createDetailedTaskSubtaskHTML(task.subtasks)
+    let subtask = createDetailedTaskSubtaskHTML(task.subtasks, taskIndex)
     renderDetailedTaskCard(taskIndex, task, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask);
 }
 
@@ -178,16 +179,16 @@ function createDetailedTaskContactListHTMLEditView(contacts) {
 }
 
 
-function createDetailedTaskSubtaskHTML(subtasks) {
+function createDetailedTaskSubtaskHTML(subtasks, taskIndex) {
     let subtaskHTML = '';
 
     if (subtasks) {
         for (let i = 0; i < subtasks.length; i++) {
             const subtask = subtasks[i];
-            let img = subtask.subtask_status = 'to_do' ? subtask.subtask_status : 'done';
+            let img = subtask.subtask_status === 'to_do' ? 'to_do' : 'done';
             subtaskHTML += /*html*/ `
             <article class="detailed_task_card_subtask_article">
-                <img src="/assets/img/subtask_checkbox_${img}.png" alt="Subtask_status">
+                <img onclick="changeSubtaskStatus(${taskIndex}, ${i})" id="subtask_(${i})" src="/assets/img/subtask_checkbox_${img}.png" alt="Subtask_status">
                 <span>${subtask.subtask}</span>
             </article>
               `
@@ -196,13 +197,28 @@ function createDetailedTaskSubtaskHTML(subtasks) {
     return subtaskHTML;
 }
 
+async function changeSubtaskStatus(taskIndex, i) {
+    let userKey = loadCurrentUser();
+    let subtask = tasks[taskIndex].subtasks[i];
+    let imgRef = document.getElementById(`subtask_(${i})`);
+    subtask.subtask_status === 'to_do' ? subtask.subtask_status = 'done' : subtask.subtask_status = 'to_do'
+    imgRef.src = `/assets/img/subtask_checkbox_${subtask.subtask_status}.png`;
+    await putData(`users/${userKey}/tasks/${tasks[taskIndex].task_id}/subtasks/${i}/subtask_status`, data = subtask.subtask_status);
+    await getAllTaskData(userKey);
+    renderAllTasks();
+}
+
+
+
 function closeDetailedCardDialog() {
     let dialogRef = document.getElementById('detailed_task_card_dialog');
     dialogRef.close();
 }
 
-function closeDetailedCardDialogEditView() {
+async function closeDetailedCardDialogEditView() {
+    let userKey = loadCurrentUser();
     let dialogRef = document.getElementById('detailed_task_card_dialog_edit_view');
+    await getAllTaskData(userKey);
     dialogRef.close();
 }
 
@@ -228,11 +244,11 @@ function openDetailedTaskCardEditView(taskIndex) {
     let subtask = createDetailedTaskSubtaskHTML(currentTask.subtasks);
     renderDetailedTaskCardEditView(cardEditView, taskIndex, currentTask, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask);
     setCurrentPriorityInEditView(currentTask.task_priority);
+    renderSubtaskListEditView();
     console.log(tasks);
 }
 
-async function setTaskChanges() {
-    let cardEditView = document.getElementById('detailed_task_card_dialog_edit_view');
+async function setTaskChanges(taskIndex) {
     let changedTask = {};
     let title = document.getElementById('task_title_edit_view');
     let description = document.getElementById('task_description_edit_view');
@@ -249,6 +265,12 @@ async function setTaskChanges() {
         changedTask.task_title = title.value
 
     await changeTaskData(currentTask.task_id, changedTask);
+    openDetailedTaskCard(taskIndex);
+    closeEditCardDialog();
+}
+
+function closeEditCardDialog() {
+    let cardEditView = document.getElementById('detailed_task_card_dialog_edit_view');
     cardEditView.close();
 }
 
@@ -291,4 +313,76 @@ function setCurrentPriorityInEditView(priority) {
             priorityElement.classList.add('board_' + priority + '_task');
         }
     }
+}
+
+function renderSubtaskListEditView() {
+    let listRef = document.getElementById('subtask_list_edit');
+    listRef.innerHTML = '';
+
+    if (!currentTask.subtasks) {
+        currentTask.subtasks = [];
+    }
+
+    for (let i = 0; i < currentTask.subtasks.length; i++) {
+        const subtask = currentTask.subtasks[i];
+        if (typeof subtask === 'object' && subtask.subtask) {
+            listRef.innerHTML += /*html*/`
+        <div class="subtask_item">
+            <input maxlength="35" id="subtask_edit_${i}" type="text" value="${subtask.subtask}">
+            <div class="subtask_edit_input_icon_section">
+                <img onclick="editSubtaskInputEditView('${i}')" src="assets/img/subtasks_icon_edit.png" alt="Edit-Icon">
+                <div class="subtask_border"></div>
+                <img onmousedown="deleteSubtaskEditView('${i}', event)" src="assets/img/subtasks_icon_delete.png" alt="Löschen-Icon">
+            </div>
+            <div class="subtask_edit_input_icon_section_focused">
+                <img onmousedown="deleteSubtaskEditView('${i}', event)" src="assets/img/subtasks_icon_delete.png" alt="Löschen-Icon">
+                <div class="subtask_border"></div>
+                <img onmousedown="editSubtaskListEditView('${i}', event)" src="assets/img/subtasks_icon_check.png" alt="Bestätigung-Icon">
+            </div>
+        </div> 
+    `;
+        }
+    }
+}
+
+function addSubtaskInputEditView(event) {
+    if (event) event.preventDefault();
+    let inputRef = document.getElementById('task_subtasks_edit');
+    let subtask = inputRef.value;
+
+    if (!subtask.trim()) return;
+
+    if (!currentTask.subtasks) {
+        currentTask.subtasks = [];
+    }
+
+    currentTask.subtasks.push({ "subtask": subtask, "subtask_status": "to_do" });
+    renderSubtaskListEditView();
+    inputRef.value = '';
+    inputRef.focus();
+}
+
+function clearSubtaskInputEditView(event) {
+    if (event) event.preventDefault();
+    let inputRef = document.getElementById('task_subtasks_edit');
+    inputRef.value = '';
+    inputRef.focus();
+}
+
+function deleteSubtaskEditView(i, event) {
+    if (event) event.preventDefault();
+    currentTask.subtasks.splice(i, 1);
+    renderSubtaskListEditView();
+}
+
+function editSubtaskInputEditView(i) {
+    let inputRef = document.getElementById(`subtask_edit_${i}`);
+    inputRef.focus();
+}
+
+function editSubtaskListEditView(i, event) {
+    if (event) event.preventDefault();
+    let subtask = document.getElementById(`subtask_edit_${i}`);
+    currentTask.subtasks[i].subtask = subtask.value;
+    renderSubtaskListEditView();
 }

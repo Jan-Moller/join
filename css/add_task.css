@@ -325,8 +325,18 @@
     background-color: rgba(246, 247, 248, 1) !important;
     border: none;
     width: 100%;
-    padding: 4px 16px 4px 16px;
+    padding: 4px 16px 4px 32px;
     height: 26px;
+}
+
+.subtask_item::before {
+    content: "•";
+    position: absolute;
+    left: 16px;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 1);
+    pointer-events: none;
+    z-index: 1;
 }
 
 .subtask_list input:focus {

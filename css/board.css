@@ -8,7 +8,7 @@ dialog {
     border-radius: 30px;
     position: relative;
     width: 75%;
-    padding: 48px;
+    padding-bottom: 48px;
 }
 
 .headline_section_board {
@@ -327,6 +327,10 @@ dialog {
     margin-bottom: 4px;
 }
 
+.detailed_task_card_subtask_article img:hover {
+  cursor: pointer;
+}
+
 .detailed_task_card_subtask_article:first-of-type {
     margin-top: 8px;
 }
@@ -448,4 +452,21 @@ dialog {
 
 .board_low_task img {
     filter: brightness(0) invert(1);
+}
+
+.subtask_input_icon_section_board{
+      position: absolute;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    right: 21px;
+    top: 26px;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.add_task_input_element:has(#task_subtasks_edit:focus) .subtask_input_icon_section_board,
+.add_task_input_element:has(#task_subtasks:focus) .subtask_input_icon_section_board {
+    display: flex;
 }

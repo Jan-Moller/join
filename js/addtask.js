@@ -6,7 +6,7 @@ let newTask = {
     'assigned_contacts': [],
     'task_category': '',
     'subtasks': [],
-    'task_status': 'to-do'
+    'task_status': ''
 }
 
 function initAddTask() {
@@ -97,20 +97,26 @@ function selectTaskCategory(category) {
     newTask.task_category = category;
 }
 
-function addSubtaskInput() {
+function addSubtaskInput(event) {
+    if (event) event.preventDefault();
     let inputRef = document.getElementById('task_subtasks');
     let subtask = inputRef.value;
+    if (!subtask.trim()) return;
     newTask.subtasks.push( {"subtask": subtask, "subtask_status": "to_do"});
     renderSubtaskList();
     inputRef.value = '';
+    inputRef.focus();
 }
 
-function clearSubtaskInput() {
+function clearSubtaskInput(event) {
+    if (event) event.preventDefault();
     let inputRef = document.getElementById('task_subtasks');
     inputRef.value = '';
+    inputRef.focus();
 }
 
-function deleteSubtask(i) {
+function deleteSubtask(i, event) {
+    if (event) event.preventDefault();
     newTask.subtasks.splice(i, 1);
     renderSubtaskList();
 }
@@ -120,7 +126,8 @@ function editSubtaskInput(i) {
     inputRef.focus();
 }
 
-function editSubtaskList(i) {
+function editSubtaskList(i, event) {
+    if (event) event.preventDefault();
     let subtask = document.getElementById(`subtask_${i}`);
     newTask.subtasks[i].subtask = subtask.value;
     renderSubtaskList();

@@ -101,10 +101,10 @@
                     <input maxlength="35" placeholder="Add new Subtask" id="task_subtasks" type="text"
                         onkeydown="if(event.key === 'Enter') { event.preventDefault(); addSubtaskInput(); } else if(event.key === 'Escape') { event.preventDefault(); clearSubtaskInput(); }">
                     <div class="subtask_input_icon_section">
-                        <img onmousedown="clearSubtaskInput()" src="assets/img/subtasks_icon_cancel.png"
+                        <img onmousedown="clearSubtaskInput(event)" src="assets/img/subtasks_icon_cancel.png"
                             alt="Storno-Icon">
                         <div class="subtask_border"></div>
-                        <img onmousedown="addSubtaskInput()" src="assets/img/subtasks_icon_check.png"
+                        <img onmousedown="addSubtaskInput(event)" src="assets/img/subtasks_icon_check.png"
                             alt="Bestätigung-Icon">
                     </div>
                     <div id="subtask_list" class="subtask_list"></div>

@@ -11,12 +11,12 @@ function renderSubtaskList() {
             <div class="subtask_edit_input_icon_section">
                 <img onclick="editSubtaskInput('${i}')" src="assets/img/subtasks_icon_edit.png" alt="Edit-Icon">
                 <div class="subtask_border"></div>
-                <img onmousedown="deleteSubtask('${i}')" src="assets/img/subtasks_icon_delete.png" alt="Löschen-Icon">
+                <img onmousedown="deleteSubtask('${i}', event)" src="assets/img/subtasks_icon_delete.png" alt="Löschen-Icon">
             </div>
             <div class="subtask_edit_input_icon_section_focused">
-                <img onmousedown="deleteSubtask('${i}')" src="assets/img/subtasks_icon_delete.png" alt="Löschen-Icon">
+                <img onmousedown="deleteSubtask('${i}', event)" src="assets/img/subtasks_icon_delete.png" alt="Löschen-Icon">
                 <div class="subtask_border"></div>
-                <img onmousedown="editSubtaskList('${i}')" src="assets/img/subtasks_icon_check.png" alt="Bestätigung-Icon">
+                <img onmousedown="editSubtaskList('${i}', event)" src="assets/img/subtasks_icon_check.png" alt="Bestätigung-Icon">
             </div>
         </div> 
     `;
@@ -179,10 +179,22 @@ function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryC
             </article>
              <article>
                 <span class="detailed_task_subheadline">Subtask:</span>
-                <div>${subtask}</div>
+               
+                <article class="add_task_input_element">
+                    <input maxlength="35" placeholder="Add new Subtask" id="task_subtasks_edit" type="text"
+                        onkeydown="if(event.key === 'Enter') { event.preventDefault(); addSubtaskInputEditView(); } else if(event.key === 'Escape') { event.preventDefault(); clearSubtaskInputEditView(); }">
+                    <div class="subtask_input_icon_section_board">
+                        <img onmousedown="clearSubtaskInputEditView(event)" src="assets/img/subtasks_icon_cancel.png"
+                            alt="Storno-Icon">
+                        <div class="subtask_border"></div>
+                        <img onmousedown="addSubtaskInputEditView(event)" src="assets/img/subtasks_icon_check.png"
+                            alt="Bestätigung-Icon">
+                    </div>
+                    <div id="subtask_list_edit" class="subtask_list"></div>
+                </article>
             </article>
             <footer class="detailed_task_card_footer">
-                <article onclick="setTaskChanges()" class="detailed_task_card_footer_article">
+                <article onclick="setTaskChanges(${taskIndex})" class="detailed_task_card_footer_article">
                     <button>Ok ✓</button>
                 </article>
             </footer>
