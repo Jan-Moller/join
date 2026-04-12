@@ -56,8 +56,6 @@ function getNextTaskDueDate() {
     let next_due_date_array = tasks.filter((task) => task.task_priority == 'urgent' && task.task_due_date).map((task) => task.task_due_date);
     let closest = Infinity;
     const now = new Date();
-    console.log(next_due_date_array);
-
 
     next_due_date_array.forEach(function (d) {
         const date = new Date(d);

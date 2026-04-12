@@ -6,16 +6,62 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contacts</title>
     <script src="script.js"></script>
+    <script src="/js/contacts.js"></script>
+    <script src="/js/templates.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/contacts.css">
+    <link rel="stylesheet" href="/css/add_task.css">
 </head>
 
-<body onload="init('nav_item_contacts')">
-<aside w3-include-html="/templates/navigation_side.html"></aside>
-    <main>
+<body onload="init('nav_item_contacts'); renderAllContacts()">
+    <aside w3-include-html="/templates/navigation_side.html"></aside>
+    <main class="contacts_main">
         <header w3-include-html="/templates/header.html"></header>
+        <section class="contacts_main_flex">
+            <nav class="contacts_navigation">
+                <button onclick="openAddContactDialog()">Add new contact <img src="assets/img/person_add.png"></button>
+                <section>
+                    <div id="contact_list"></div>
+                </section>
+            </nav>
+            <aside>
+                <section class="headline_section">
+                    <h1>Contacts</h1>
+                    <div class="contacts_headline_border"></div>
+                    <span class="contacts_headline_subelement">Better with a team</span>
+                </section>
+            </aside>
+
+        </section>
     </main>
 
+    <dialog class="add_contact_dialog" id="add_contact_dialog_ref">
+        <div class="add_content_dialog_content">
+            <aside class="add_contact_dialog_aside">
+                <img src="assets/img/join_logo_large.png" alt="Logo">
+                <h1>Add contact</h1>
+                <p>Tasks are better with a team!</p>
+            </aside>
+            <section class="add_contact_right_section">
+                <img onclick="closeAddContactDialog()" class="contact_close_btn" src="assets/img/addtask_cancel.png" alt="Cancel Button">
+                <article class="add_contact_form_section">
+                    <img src="assets/img/contact_person_icon.png" alt="Personen Icon">
+                    <form id="add_contact_form" action="" onsubmit="createContact(); return false">
+                        <input required placeholder="Name" type="text" name="contact_name" id="contact_name">
+                        <input required placeholder="Email" type="email" name="contact_email" id="contact_email">
+                        <input required placeholder="Phone" type="tel" name="contact_pjone" id="contact_phone">
+                        <article class="add_contact_buttons">
+                            <button class="button_white">Cancel</button>
+                            <button type="submit" form="add_contact_form">Create contact</button>
+                        </article>
+                    </form>
+                </article>
+            </section>
+
+        </div>
+
+    </dialog>
 </body>
 
 </html>

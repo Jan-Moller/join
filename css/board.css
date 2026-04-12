@@ -41,16 +41,19 @@ dialog {
 
 .board_table_section {
     display: flex;
-    align-items: flex-start;
+    align-items: stretch;
     justify-content: space-between;
     gap: 26px;
     padding: 48px 96px 0 96px;
     width: 100%;
+    min-height: calc(100vh - 200px);
 }
 
 .board_table_element {
     flex: 1;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .board_table_header {
@@ -469,4 +472,12 @@ dialog {
 .add_task_input_element:has(#task_subtasks_edit:focus) .subtask_input_icon_section_board,
 .add_task_input_element:has(#task_subtasks:focus) .subtask_input_icon_section_board {
     display: flex;
+}
+
+.detailed_task_subheadline_board{
+    margin-top: 24px; 
+}
+
+.board_table_drop_section {
+    flex-grow: 1;
 }

@@ -1,5 +1,6 @@
 let tasks = [];
 let currentTask = '';
+let currentDraggedElement;
 
 function initBoard() {
     init('nav_item_board');
@@ -16,11 +17,6 @@ async function renderTaskBoard() {
     let userKey = loadCurrentUser();
     await getAllTaskData(userKey);
     renderAllTasks();
-}
-
-function loadCurrentUser() {
-    let currentUser = sessionStorage.getItem('currentUserKey')
-    return currentUser
 }
 
 async function getAllTaskData(userKey) {
@@ -76,6 +72,22 @@ function showPlaceholdersForEmptyColumns() {
             column.innerHTML = '<article><div class="board_no_task_placeholder"><span>No tasks To do</span></div></article>';
         }
     }
+}
+
+function startDragging(taskIndex) {
+    currentDraggedElement = taskIndex;
+}
+
+function allowDrop(event) {
+    event.preventDefault();
+}
+
+async function moveTask(status) {
+    let userKey = loadCurrentUser();
+    tasks[currentDraggedElement].task_status = status; 
+    await putData(`users/${userKey}/tasks/${tasks[currentDraggedElement].task_id}/task_status`, data = status);
+    await getAllTaskData(userKey);
+    renderAllTasks();
 }
 
 function countSubtasksStatus(subtasks) {

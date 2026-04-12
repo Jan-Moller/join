@@ -47,6 +47,11 @@ function setBGForCurrentNavItem(item) {
   navItemRef.style.background = 'rgba(9, 25, 49, 1)';
 }
 
+function loadCurrentUser() {
+    let currentUser = sessionStorage.getItem('currentUserKey')
+    return currentUser
+}
+
 async function getData(path = "") {
   let response = await fetch(BASE_URL + path + ".json")
   return responseToJson = await response.json();

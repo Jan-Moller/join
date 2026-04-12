@@ -28,7 +28,7 @@ function renderBoardTaskCard(task, categoryClass, total_subtasks, totalSubtasksD
     let card = document.getElementById(`board_task_card_${task.task_status}`);
     card.innerHTML += /*html*/ `
 
-    <article class="board_task_card" onclick="openDetailedTaskCard(${taskIndex})">
+    <article draggable="true" ondragstart="startDragging(${taskIndex})" class="board_task_card" onclick="openDetailedTaskCard(${taskIndex})">
         <span class="board_task_card_${categoryClass}">${task.task_category}</span>
         <h4>${task.task_title}</h4>
         <p>${task.task_description}</p>
@@ -45,8 +45,7 @@ function renderBoardTaskCard(task, categoryClass, total_subtasks, totalSubtasksD
              ${taskPrio}
         </section>
     </article>
-
-    `
+`
 }
 
 function renderDetailedTaskCard(taskIndex, task, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask) {
@@ -177,7 +176,7 @@ function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryC
                         ${assignedContactsHTML}
                     </section>
             </article>
-             <article>
+             <article class="detailed_task_subheadline_board">
                 <span class="detailed_task_subheadline">Subtask:</span>
                
                 <article class="add_task_input_element">
@@ -200,4 +199,17 @@ function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryC
             </footer>
     </article>
     `
+}
+
+function renderContactFromAllContacts(contact_name, contact_initials, contact_bg, contact_mail) {
+    return /*html*/ `
+<article class="contact_list_item">
+    <span style="background: ${contact_bg}"  class="contact_initials">${contact_initials}</span>
+    <div class="contact_info_section">
+        <span>${contact_name}</span>
+        <a href="mailto:${contact_mail}">${contact_mail}</a>
+    </div>
+    
+</article>
+`
 }

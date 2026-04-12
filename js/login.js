@@ -4,6 +4,8 @@ async function login() {
 
     let response = await fetch(BASE_URL + 'users.json?orderBy="mail"&equalTo="' + email + '"');
     let matchingUsers = await response.json();
+    console.log(matchingUsers);
+    
 
     if (matchingUsers && Object.keys(matchingUsers).length > 0) {
         let userKey = Object.keys(matchingUsers)[0];
