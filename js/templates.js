@@ -140,36 +140,6 @@ function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryC
                         </div>
                         <article id="choosen_task_contacts_section" class="choosen_task_contacts_section"></article>
                         <div id="contacts_dropdown_content_edit" class="contacts_dropdown_content">
-                            <article class="task_contact_item" id="contact_1" onclick="selectTaskContact('contact_1')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_2" onclick="selectTaskContact('contact_2')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_3" onclick="selectTaskContact('contact_3')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_4" onclick="selectTaskContact('contact_4')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_5" onclick="selectTaskContact('contact_5')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
-                            <article class="task_contact_item" id="contact_6" onclick="selectTaskContact('contact_6')">
-                                <div class="contact_name_infos"><span class="contact_initials">JM</span><span>Jan
-                                        Möller</span></div><img src="assets/img/contact_check_btn.png"
-                                    alt="Bild einer Dropbox">
-                            </article>
                         </div>
                     </section>
                     <section class="assigned_contacts_to_task">  

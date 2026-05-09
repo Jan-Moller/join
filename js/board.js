@@ -107,7 +107,7 @@ function createTaskContactList(contacts) {
     if (contacts) {
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
-            contactList += `<div class="contact_initials">${contact}</div>`;
+            contactList += `<div class="contact_initials" style="background-color:${contact.initial_bg}">${contact.contact_initials}</div>`;
         }
         return contactList;
     } else { return '' };
@@ -170,8 +170,8 @@ function createDetailedTaskContactListHTML(contacts) {
             const contact = contacts[i];
             contactList += `
             <article class="detailed_task_contact_list">
-                <div class="contact_initials contact_initilas_detailed_task">${contact}</div>
-                <span>Jan Möller</span>
+                <div class="contact_initials contact_initilas_detailed_task" style="background-color: ${contact.initial_bg}">${contact.contact_initials}</div>
+                <span>${contact.contact_name}</span>
             </article> `
         }
         return contactList;
@@ -184,7 +184,7 @@ function createDetailedTaskContactListHTMLEditView(contacts) {
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
             contactList += /*html*/ `
-           <div class="contact_initials_edit_view">${contact}</div>`
+           <div class="contact_initials_edit_view" style="background-color: ${contact.initial_bg}">${contact.contact_initials}</div>`
         }
         return contactList;
     } else { return '' };
@@ -257,7 +257,27 @@ function openDetailedTaskCardEditView(taskIndex) {
     renderDetailedTaskCardEditView(cardEditView, taskIndex, currentTask, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask);
     setCurrentPriorityInEditView(currentTask.task_priority);
     renderSubtaskListEditView();
-    console.log(tasks);
+    renderTaskContactsEditView();
+}
+
+async function renderTaskContactsEditView() {
+    let userContacts = await getUserContactData();
+
+    let contactsRef = document.getElementById('contacts_dropdown_content_edit');
+    if (!contactsRef || !userContacts) return;
+    contactsRef.innerHTML = '';
+    for (let i = 0; i < userContacts.length; i++) {
+        const contact = userContacts[i];
+        contactsRef.innerHTML += /*html*/ `
+          <article class="task_contact_item" id="contact_${i}" onclick="selectTaskContact('contact_${i}', ${i})">
+            <div class="contact_name_infos">
+                <span style="background-color: ${contact.initial_bg}" class="contact_initials">${contact.contact_initials}</span>
+                <span>${contact.contact_name}</span>
+            </div>
+            <img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox">
+            </article>
+        `
+    }
 }
 
 async function setTaskChanges(taskIndex) {

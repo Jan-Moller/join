@@ -6,11 +6,14 @@ let newTask = {
     'assigned_contacts': [],
     'task_category': '',
     'subtasks': [],
-    'task_status': ''
+    'task_status': 'to-do'
 }
 
-function initAddTask() {
-    init('nav_item_add_task')
+let userContacts = [];
+
+async function initAddTask() {
+    await init('nav_item_add_task');
+    await renderTaskContacts();
 }
 
 function setTaskPriority(prio) {
@@ -35,6 +38,50 @@ function removeTaskPriority() {
     newTask.task_priority = '';
 }
 
+async function getUserContactData() {
+    let userKey = sessionStorage.getItem('currentUserKey');
+
+    let contactsResponse = await getData(`users/${userKey}/contacts`)
+
+    if (!contactsResponse) return;
+    let contactsKeyArray = Object.keys(contactsResponse);
+
+    for (let i = 0; i < contactsKeyArray.length; i++) {
+        const contactElement = contactsKeyArray[i];
+        userContacts.push({
+            "contact_initials": contactsResponse[contactElement].contact_initials,
+            "contact_mail": contactsResponse[contactElement].contact_mail,
+            "contact_name": contactsResponse[contactElement].contact_name,
+            "contact_phone": contactsResponse[contactElement].contact_phone,
+            "initial_bg": contactsResponse[contactElement].initial_bg,
+            "contact_id": contactElement
+        })
+    }
+
+    userContacts.sort((a, b) => a.contact_name.localeCompare(b.contact_name));
+    return userContacts;
+}
+
+
+async function renderTaskContacts() {
+    await getUserContactData();
+    let contactsRef = document.getElementById('contacts_dropdown_content');
+    if (!contactsRef || !userContacts) return;
+    contactsRef.innerHTML = '';
+    for (let i = 0; i < userContacts.length; i++) {
+        const contact = userContacts[i];
+        contactsRef.innerHTML += /*html*/ `
+          <article class="task_contact_item" id="contact_${i}" onclick="selectTaskContact('contact_${i}', ${i})">
+            <div class="contact_name_infos">
+                <span style="background-color: ${contact.initial_bg}" class="contact_initials">${contact.contact_initials}</span>
+                <span>${contact.contact_name}</span>
+            </div>
+            <img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox">
+            </article>
+        `
+    }
+}
+
 function showContactsDropdown() {
     let content = document.getElementById('contacts_dropdown_content');
     let dropdown_icon_open = document.getElementById('contacts_dropdown_icon_open');
@@ -53,17 +100,17 @@ function showContactsDropdownEdit() {
     dropdown_icon_close.classList.toggle('d_none');
 }
 
-function selectTaskContact(id) {
+function selectTaskContact(id, i) {
     let contactRef = document.getElementById(id);
     let img = contactRef.querySelector('img');
     contactRef.classList.toggle('bg_choosen_contact');
 
     if (contactRef.classList.contains('bg_choosen_contact')) {
         img.src = "assets/img/check_btn_checked.png";
-        newTask.assigned_contacts.push(id)
+        newTask.assigned_contacts.push(userContacts[i])
     } else {
         img.src = "assets/img/contact_check_btn.png";
-        const index = newTask.assigned_contacts.indexOf(id);
+        const index = newTask.assigned_contacts.indexOf(userContacts[i]);
         if (index > -1) {
             newTask.assigned_contacts.splice(index, 1);
         }
@@ -76,7 +123,11 @@ function showSelectedTaskContacts() {
     displayContactsRef.innerHTML = '';
     for (let i = 0; i < newTask.assigned_contacts.length; i++) {
         const contact = newTask.assigned_contacts[i];
-        displayContactsRef.innerHTML += `${contact}`;
+        displayContactsRef.innerHTML += `
+        <div class="contact_name_infos">
+            <span style="background-color: ${contact.initial_bg}" class="contact_initials">${contact.contact_initials}</span>
+        </div>
+        `;
     }
 }
 
@@ -102,7 +153,7 @@ function addSubtaskInput(event) {
     let inputRef = document.getElementById('task_subtasks');
     let subtask = inputRef.value;
     if (!subtask.trim()) return;
-    newTask.subtasks.push( {"subtask": subtask, "subtask_status": "to_do"});
+    newTask.subtasks.push({ "subtask": subtask, "subtask_status": "to_do" });
     renderSubtaskList();
     inputRef.value = '';
     inputRef.focus();
@@ -134,10 +185,11 @@ function editSubtaskList(i, event) {
 }
 
 async function addTask() {
+    let userKey = sessionStorage.getItem('currentUserKey')
     if (!checkRequiredInputElements()) {
         return;
     }
-    
+
     let title = document.getElementById('task_title');
     let description = document.getElementById('task_description');
     let due_date = document.getElementById('task_due_date');
@@ -146,7 +198,10 @@ async function addTask() {
     newTask.task_description = description.value;
     newTask.task_due_date = due_date.value;
 
-    await addTaskData();
+    let taskId = await addTaskData();
+    if (taskId && newTask.assigned_contacts.length > 0) {
+        await addTaskToContacts(taskId);
+    }
     showSuccessfullTaskDialog();
 }
 
@@ -225,7 +280,17 @@ function checkRequiredTaskCategory(isValid, category) {
 
 async function addTaskData() {
     let userKey = sessionStorage.getItem('currentUserKey')
-    await postData(`/users/${userKey}/tasks`, data = newTask);
+    let response = await postData(`/users/${userKey}/tasks`, data = newTask);
+    return response?.name || null;
+}
+
+async function addTaskToContacts(taskId) {
+    let userKey = sessionStorage.getItem('currentUserKey');
+    for (let i = 0; i < newTask.assigned_contacts.length; i++) {
+        const contact = newTask.assigned_contacts[i];
+        const contactId = contact.contact_id;
+        await postData(`/users/${userKey}/contacts/${contactId}/tasks`, { task_id: taskId });
+    }
 }
 
 function showSuccessfullTaskDialog() {

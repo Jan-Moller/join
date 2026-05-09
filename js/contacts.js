@@ -36,7 +36,8 @@ async function getContactData() {
             "contact_name": contactsResponse[contactElement].contact_name,
             "contact_phone": contactsResponse[contactElement].contact_phone,
             "initial_bg": contactsResponse[contactElement].initial_bg,
-            "contact_id": contactElement
+            "contact_id": contactElement,
+            "tasks_assigned": [],
         })
     }
 
@@ -70,6 +71,7 @@ async function createContact() {
         "contact_mail": mail.value,
         "contact_phone": phone.value,
         "initial_bg": getRandomColor(),
+        "tasks_assgined": [],
     }
 
     await postData(`users/${userKey}/contacts`, data = newContact);

@@ -65,6 +65,7 @@ async function postData(path = "", data = {}) {
     },
     body: JSON.stringify(data),
   })
+  return await response.json();
 }
 
 async function deleteData(path = "") {
