@@ -40,10 +40,11 @@ function removeTaskPriority() {
 
 async function getUserContactData() {
     let userKey = sessionStorage.getItem('currentUserKey');
+    userContacts = [];
 
     let contactsResponse = await getData(`users/${userKey}/contacts`)
 
-    if (!contactsResponse) return;
+    if (!contactsResponse) return userContacts;
     let contactsKeyArray = Object.keys(contactsResponse);
 
     for (let i = 0; i < contactsKeyArray.length; i++) {

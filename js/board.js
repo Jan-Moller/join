@@ -84,7 +84,7 @@ function allowDrop(event) {
 
 async function moveTask(status) {
     let userKey = loadCurrentUser();
-    tasks[currentDraggedElement].task_status = status; 
+    tasks[currentDraggedElement].task_status = status;
     await putData(`users/${userKey}/tasks/${tasks[currentDraggedElement].task_id}/task_status`, data = status);
     await getAllTaskData(userKey);
     renderAllTasks();
@@ -243,11 +243,16 @@ async function deleteTaskFromBoard(task_id, taskIndex) {
 }
 
 function openDetailedTaskCardEditView(taskIndex) {
+
     let card = document.getElementById('detailed_task_card_dialog');
     let cardEditView = document.getElementById('detailed_task_card_dialog_edit_view');
     card.close();
     cardEditView.showModal();
-    currentTask = tasks[taskIndex];
+    currentTask = JSON.parse(JSON.stringify(tasks[taskIndex]));
+    if (!currentTask.assigned_contacts) currentTask.assigned_contacts = [];
+    if (!Array.isArray(currentTask.assigned_contacts)) {
+        currentTask.assigned_contacts = Object.values(currentTask.assigned_contacts);
+    }
     currentTask.task_category === 'Technical Task' ? categoryClass = 'technical_task' : categoryClass = 'user_story';
     let due_date = currentTask.task_due_date;
     let taskPriorityImg = currentTask.task_priority ? `<img src="assets/img/${currentTask.task_priority}_prio_icon.png" alt="Priorität: ${currentTask.task_priority}">` : '';
@@ -257,19 +262,67 @@ function openDetailedTaskCardEditView(taskIndex) {
     renderDetailedTaskCardEditView(cardEditView, taskIndex, currentTask, categoryClass, due_date, taskPriority, taskPriorityImg, assignedContactsHTML, subtask);
     setCurrentPriorityInEditView(currentTask.task_priority);
     renderSubtaskListEditView();
-    renderTaskContactsEditView();
+    renderTaskContactsEditView(currentTask, taskIndex);
 }
 
-async function renderTaskContactsEditView() {
+async function renderTaskContactsEditView(currentTask, taskIndex) {
     let userContacts = await getUserContactData();
+    console.log(userContacts)
 
     let contactsRef = document.getElementById('contacts_dropdown_content_edit');
     if (!contactsRef || !userContacts) return;
     contactsRef.innerHTML = '';
     for (let i = 0; i < userContacts.length; i++) {
         const contact = userContacts[i];
-        contactsRef.innerHTML += /*html*/ `
-          <article class="task_contact_item" id="contact_${i}" onclick="selectTaskContact('contact_${i}', ${i})">
+        if (!checkForAssignedContact(contact, currentTask)) {
+            renderTaskContactEditViewNotChoosen(contactsRef, contact, i, taskIndex)
+        }
+        else {
+            renderTaskContactEditViewContactChoosen(contactsRef, contact, i, taskIndex)
+        }
+    }
+}
+
+async function selectTaskContactEditView(id, i, taskIndex) {
+    let contactRef = document.getElementById(id);
+    let img = contactRef.querySelector('img');
+    contactRef.classList.toggle('bg_choosen_contact');
+
+    if (contactRef.classList.contains('bg_choosen_contact')) {
+        img.src = "assets/img/check_btn_checked.png";
+        if (!currentTask.assigned_contacts) currentTask.assigned_contacts = [];
+        if (!Array.isArray(currentTask.assigned_contacts)) {
+            currentTask.assigned_contacts = Object.values(currentTask.assigned_contacts);
+        }
+        currentTask.assigned_contacts.push(userContacts[i]);
+
+    } else {
+        img.src = "assets/img/contact_check_btn.png";
+        const index = currentTask.assigned_contacts.findIndex(c => c.contact_id === userContacts[i].contact_id);
+        if (index > -1) {
+            currentTask.assigned_contacts.splice(index, 1);
+        }
+    }
+    showSelectedTaskContactsEditView(taskIndex)
+}
+
+function showSelectedTaskContactsEditView(taskIndex) {
+    let displayContactsRef = document.getElementById('choosen_task_contacts_section_edit');
+    if (!displayContactsRef) return;
+    displayContactsRef.innerHTML = '';
+    for (let i = 0; i < currentTask.assigned_contacts.length; i++) {
+        const contact = currentTask.assigned_contacts[i];
+        displayContactsRef.innerHTML += `
+        <div class="contact_name_infos">
+            <span style="background-color: ${contact.initial_bg}" class="contact_initials">${contact.contact_initials}</span>
+        </div>
+        `;
+    }
+}
+
+function renderTaskContactEditViewNotChoosen(contactsRef, contact, i, taskIndex) {
+    contactsRef.innerHTML += /*html*/ `
+          <article class="task_contact_item" id="contact_${i}" onclick="selectTaskContactEditView('contact_${i}', ${i}, ${taskIndex})">
             <div class="contact_name_infos">
                 <span style="background-color: ${contact.initial_bg}" class="contact_initials">${contact.contact_initials}</span>
                 <span>${contact.contact_name}</span>
@@ -277,7 +330,22 @@ async function renderTaskContactsEditView() {
             <img src="assets/img/contact_check_btn.png" alt="Bild einer Dropbox">
             </article>
         `
-    }
+}
+
+function renderTaskContactEditViewContactChoosen(contactsRef, contact, i, taskIndex) {
+    contactsRef.innerHTML += /*html*/ `
+          <article class="task_contact_item bg_choosen_contact" id="contact_${i}" onclick="selectTaskContactEditView('contact_${i}', ${i}, ${taskIndex})">
+            <div class="contact_name_infos">
+                <span style="background-color: ${contact.initial_bg}" class="contact_initials">${contact.contact_initials}</span>
+                <span>${contact.contact_name}</span>
+            </div>
+            <img src="assets/img/check_btn_checked.png" alt="Bild einer Dropbox">
+            </article> `
+}
+
+function checkForAssignedContact(contact, currentTask) {
+    if (!currentTask.assigned_contacts) return false;
+    return currentTask.assigned_contacts.some(c => c.contact_id === contact.contact_id);
 }
 
 async function setTaskChanges(taskIndex) {

@@ -143,7 +143,7 @@ function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryC
                         </div>
                     </section>
                     <section class="assigned_contacts_to_task">  
-                        ${assignedContactsHTML}
+                        <div id="choosen_task_contacts_section_edit" class="choosen_task_contacts_section">${assignedContactsHTML}</div>
                     </section>
             </article>
              <article class="detailed_task_subheadline_board">
