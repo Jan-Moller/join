@@ -169,11 +169,11 @@ function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryC
             </footer>
     </article>
     `
-}
+} 7
 
-function renderContactFromAllContacts(contact_name, contact_initials, contact_bg, contact_mail) {
+function renderContactFromAllContacts(contact_id, contact_name, contact_initials, contact_bg, contact_mail) {
     return /*html*/ `
-<article class="contact_list_item">
+<article class="contact_list_item" onclick="showCurrentContact('${contact_id}')">
     <span style="background: ${contact_bg}"  class="contact_initials">${contact_initials}</span>
     <div class="contact_info_section">
         <span>${contact_name}</span>
@@ -181,5 +181,26 @@ function renderContactFromAllContacts(contact_name, contact_initials, contact_bg
     </div>
     
 </article>
+`
+}
+
+function renderCurrentContactDetails(contactRef, contact_id, contact_name, contact_initials, contact_bg, contact_mail) {
+    contactRef.innerHTML = /*html*/ `
+<section class="contact_detailed_info_header">
+    <article class="main_contact_details_initials" style="background-color: ${contact_bg}">${contact_initials}</article>
+    <article class="main_contact_details_name_section">
+        <h2>${contact_name}</h2>
+        <section class="main_contact_details_action_section"> 
+            <div>
+                <img src="/assets/img/delete.png" alt="">
+                <span>Edit</span>
+            </div>
+            <div>
+                <img src="/assets/img/edit.png" alt="">
+                <span>Delete</span>
+            </div>
+        </section>
+    </article>
+</section>
 `
 }

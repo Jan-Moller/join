@@ -16,7 +16,8 @@ async function renderAllContacts() {
             currentLetter = firstLetter;
             contactsListRef.innerHTML += `<div class="contact_list_letter_header">${currentLetter}</div>`;
         }
-        contactsListRef.innerHTML += renderContactFromAllContacts(contact.contact_name, contact.contact_initials, contact.initial_bg, contact.contact_mail);
+        contactsListRef.innerHTML += renderContactFromAllContacts(contact.contact_id, contact.contact_name, contact.contact_initials, contact.initial_bg, contact.contact_mail);
+        
     }
 }
 
@@ -73,6 +74,8 @@ async function createContact() {
         "initial_bg": getRandomColor(),
         "tasks_assgined": [],
     }
+    console.log(newContact);
+    
 
     await postData(`users/${userKey}/contacts`, data = newContact);
     renderAllContacts();
@@ -81,4 +84,18 @@ async function createContact() {
 
 function getRandomColor() {
     return '#' + Math.floor(Math.random() * 0xFFFFFF).toString(16).padStart(6, '0');
+}
+
+function showCurrentContact(contact_id) {
+    let contactRef = document.getElementById('current_contact_ref');
+    const contact = userContacts.find(c => c.contact_id === contact_id);
+    if (!contactRef || !contact) return;
+    renderCurrentContactDetails(
+        contactRef,
+        contact.contact_id,
+        contact.contact_name,
+        contact.contact_initials,
+        contact.initial_bg,
+        contact.contact_mail
+    );
 }
