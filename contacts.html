@@ -37,32 +37,7 @@
         </section>
     </main>
 
-    <dialog class="add_contact_dialog" id="add_contact_dialog_ref">
-        <div class="add_content_dialog_content">
-            <aside class="add_contact_dialog_aside">
-                <img src="assets/img/join_logo_large.png" alt="Logo">
-                <h1>Add contact</h1>
-                <p>Tasks are better with a team!</p>
-            </aside>
-            <section class="add_contact_right_section">
-                <img onclick="closeAddContactDialog()" class="contact_close_btn" src="assets/img/addtask_cancel.png" alt="Cancel Button">
-                <article class="add_contact_form_section">
-                    <img src="assets/img/contact_person_icon.png" alt="Personen Icon">
-                    <form id="add_contact_form" action="" onsubmit="createContact(); return false">
-                        <input required placeholder="Name" type="text" name="contact_name" id="contact_name">
-                        <input required placeholder="Email" type="email" name="contact_email" id="contact_email">
-                        <input required placeholder="Phone" type="tel" name="contact_pjone" id="contact_phone">
-                        <article class="add_contact_buttons">
-                            <button class="button_white">Cancel</button>
-                            <button type="submit" form="add_contact_form">Create contact</button>
-                        </article>
-                    </form>
-                </article>
-            </section>
-
-        </div>
-
-    </dialog>
+    <dialog class="add_contact_dialog" id="add_contact_dialog_ref"></dialog>
 </body>
 
 </html>

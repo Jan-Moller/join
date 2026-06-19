@@ -252,5 +252,57 @@
     line-height: 120%;
     letter-spacing: 0%;
     vertical-align: middle;
-
 }
+
+.delete_contact_btn, .edit_contact_btn{
+    cursor: pointer;
+}
+
+.contact_detailed_info_section {
+    margin: 50px 0 0 96px;
+}
+
+.contact_detailed_info_section h3 {
+    margin-block-start: 0;
+    margin-block-end: 0;
+    font-family: Inter;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 120%;
+    letter-spacing: 0%;
+    margin-bottom: 25px;
+}
+
+.contact_details_list {
+    margin: 0;
+}
+
+.contact_details_list dd {
+    margin: 0;
+}
+
+.contact_details_label {
+    display: block; 
+    margin: 21px 0 15px 0;
+    font-family: Inter;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 16px;
+    line-height: 120%;
+}
+
+.edit_contact_details_initials {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 1);
+    color: white;
+    font-family: Inter;
+    font-weight: 500;
+    font-size: 47px;
+}
+

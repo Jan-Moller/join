@@ -169,7 +169,33 @@ function renderDetailedTaskCardEditView(cardEditView, taskIndex, task, categoryC
             </footer>
     </article>
     `
-} 7
+} 
+
+function renderAddContactDialog(dialogRef) {
+    dialogRef.innerHTML = /*html*/ `
+     <div class="add_content_dialog_content">
+            <aside class="add_contact_dialog_aside">
+                <img src="assets/img/join_logo_large.png" alt="Logo">
+                <h1>Add contact</h1>
+                <p>Tasks are better with a team!</p>
+            </aside>
+            <section class="add_contact_right_section">
+                <img onclick="closeAddContactDialog()" class="contact_close_btn" src="assets/img/addtask_cancel.png" alt="Cancel Button">
+                <article class="add_contact_form_section">
+                    <img src="assets/img/contact_person_icon.png" alt="Personen Icon">
+                    <form id="add_contact_form" action="" onsubmit="createContact(); return false">
+                        <input required placeholder="Name" type="text" name="contact_name" id="contact_name">
+                        <input required placeholder="Email" type="email" name="contact_email" id="contact_email">
+                        <input required placeholder="Phone" type="tel" name="contact_pjone" id="contact_phone">
+                        <article class="add_contact_buttons">
+                            <button type="button" class="button_white" onclick="closeAddContactDialog()">Cancel</button>
+                            <button type="submit" form="add_contact_form">Create contact</button>
+                        </article>
+                    </form>
+                </article>
+            </section>
+        </div> `
+}
 
 function renderContactFromAllContacts(contact_id, contact_name, contact_initials, contact_bg, contact_mail) {
     return /*html*/ `
@@ -184,7 +210,7 @@ function renderContactFromAllContacts(contact_id, contact_name, contact_initials
 `
 }
 
-function renderCurrentContactDetails(contactRef, contact_id, contact_name, contact_initials, contact_bg, contact_mail) {
+function renderCurrentContactDetails(contactRef, contact_id, contact_name, contact_initials, contact_bg, contact_mail, contact_phone) {
     contactRef.innerHTML = /*html*/ `
 <section class="contact_detailed_info_header">
     <article class="main_contact_details_initials" style="background-color: ${contact_bg}">${contact_initials}</article>
@@ -193,14 +219,51 @@ function renderCurrentContactDetails(contactRef, contact_id, contact_name, conta
         <section class="main_contact_details_action_section"> 
             <div>
                 <img src="/assets/img/delete.png" alt="">
-                <span>Edit</span>
+                <span class="edit_contact_btn" onclick="openContactDetailsEditMode('${contact_id}')">Edit</span>
             </div>
             <div>
                 <img src="/assets/img/edit.png" alt="">
-                <span>Delete</span>
+                <span class="delete_contact_btn" onclick="deleteContact('${contact_id}')">Delete</span>
             </div>
         </section>
     </article>
 </section>
+<section class="contact_detailed_info_section">
+    <h3>Contact Information</h3>
+
+    <dl class="contact_details_list">
+        <dt class="contact_details_label">Email</dt>
+        <dd><a id="contact_details_mail" href="mailto:${contact_mail}">${contact_mail}</a></dd>
+        <dt class="contact_details_label">Phone</dt>
+        <dd><a id="contact_details_phone" href="tel:${contact_phone}">${contact_phone}</a></dd>
+    </dl>
+
+</section>
 `
+}
+
+function renderEditContactDialog(contactRef, contact_id, contact_name, contact_initials, contact_bg, contact_mail, contact_phone) {
+    contactRef.innerHTML = /*html*/ `
+     <div class="add_content_dialog_content">
+            <aside class="add_contact_dialog_aside">
+                <img src="assets/img/join_logo_large.png" alt="Logo">
+                <h1>Add contact</h1>
+                <p>Tasks are better with a team!</p>
+            </aside>
+            <section class="add_contact_right_section">
+                <img onclick="closeAddContactDialog()" class="contact_close_btn" src="assets/img/addtask_cancel.png" alt="Cancel Button">
+                <article class="add_contact_form_section">
+                    <article class="edit_contact_details_initials" style="background-color: ${contact_bg}">${contact_initials}</article>
+                    <form id="add_contact_form" action="" onsubmit="editContact('${contact_id}', '${contact_bg}'); return false">
+                        <input value="${contact_name}" required placeholder="Name" type="text" name="contact_name" id="contact_name">
+                        <input value="${contact_mail}" required placeholder="Email" type="email" name="contact_email" id="contact_email">
+                        <input value="${contact_phone}" required placeholder="Phone" type="tel" name="contact_pjone" id="contact_phone">
+                        <article class="add_contact_buttons">
+                            <button type="button" onclick="deleteContact('${contact_id}')"class="button_white">Delete</button>
+                            <button type="submit" form="add_contact_form">Save</button>
+                        </article>
+                    </form>
+                </article>
+            </section>
+        </div> `
 }
