@@ -105,10 +105,16 @@ async function deleteContact(contact_id) {
     let contactRef = document.getElementById('current_contact_ref');
     let dialogRef = document.getElementById('add_contact_dialog_ref');
     let userKey = loadCurrentUser();
-    await deleteData(`users/${userKey}/contacts/${contact_id}`);
+    await deleteContactData(userKey, contact_id)
     await renderAllContacts();
     contactRef.innerHTML = '';
     if (dialogRef.open) { closeAddContactDialog(); }
+}
+
+async function deleteContactData(userKey, contact_id) {
+    await deleteData(`users/${userKey}/contacts/${contact_id}`);
+    let update_contacts = await findAllTasksForContact(contact_id, userKey);
+    await deleteAssignedContactsInBoard(update_contacts, userKey);
 }
 
 function openContactDetailsEditMode(contact_id) {
@@ -151,7 +157,7 @@ async function updateContactData(contact_id, newContact, userKey) {
     await putData(`users/${userKey}/contacts/${contact_id}`, data = newContact);
     await renderAllContacts();
     let update_contacts = await findAllTasksForContact(contact_id, userKey);
-    await updateAssignedContactsinBoard(update_contacts);
+    await updateAssignedContactsInBoard(update_contacts, userKey, newContact);
     showCurrentContact(contact_id);
     closeAddContactDialog();
 }
@@ -166,19 +172,35 @@ async function findAllTasksForContact(contact, userKey) {
     let taskKeys = Object.keys(tasksResponse);
     for (let i = 0; i < taskKeys.length; i++) {
         const taskKey = taskKeys[i];
-        const assigned = tasksResponse[taskKey].assigned_contacts || [];
+        const assignedContacts = tasksResponse[taskKey].assigned_contacts;
+        console.log(assignedContacts);
+        
+        if (!assignedContacts) continue;
 
-        const match = assigned.find(t => t.contact_id === contact);
-        if (match) {
-            results.push({
-                task_id: taskKey,
-                contact_id: contact
-            })}
+        for (const [key, assignedContact] of Object.entries(assignedContacts)) {
+            if (assignedContact && assignedContact.contact_id === contact) {
+                results.push({
+                    task_id: taskKey,
+                    contact_id: assignedContact.contact_id,
+                    assigned_contact_key: key,
+                });
+            }
+        }
     }
     return results;
 }
 
-async function updateAssignedContactsinBoard(update_contacts) {
-    
-    
+async function updateAssignedContactsInBoard(update_contacts, userKey, newContact) {
+    for (let i = 0; i < update_contacts.length; i++) {
+        const contact = update_contacts[i];
+        const updatedAssignedContact = { ...newContact, contact_id: contact.contact_id };
+        await putData(`users/${userKey}/tasks/${contact.task_id}/assigned_contacts/${contact.assigned_contact_key}`, data = updatedAssignedContact);
+    }
+};
+
+async function deleteAssignedContactsInBoard(update_contacts, userKey) {
+    for (let i = 0; i < update_contacts.length; i++) {
+        const contact = update_contacts[i];
+        await deleteData(`users/${userKey}/tasks/${contact.task_id}/assigned_contacts/${contact.assigned_contact_key}`);
+    }
 };

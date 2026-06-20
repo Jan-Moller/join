@@ -9,8 +9,6 @@ async function getCurrentTaskData() {
     let userKey = sessionStorage.getItem('currentUserKey')
     let tasksResponse = await getData(`/users/${userKey}/tasks`);
     let taskKeyArray = Object.keys(tasksResponse);
-    console.log(tasksResponse);
-
 
     for (let i = 0; i < taskKeyArray.length; i++) {
         const taskKey = taskKeyArray[i];
@@ -34,14 +32,13 @@ function renderTaskSummary(tasks) {
     let progress_ref = document.getElementById('summary_task_in_progress');
     let await_feedback_ref = document.getElementById('summary_task_awaiting_feedback');
 
-    let amount_to_dos = tasks.filter((task) => task.task_status == 'To-do');
-    let amount_done = tasks.filter((task) => task.task_status == 'Done');
-    let amount_progress = tasks.filter((task) => task.task_status == 'Task in Progress');
-    let amount_feedback = tasks.filter((task) => task.task_status == 'Awaiting Feedback');
+    let amount_to_dos = tasks.filter((task) => task.task_status == 'to-do');
+    let amount_done = tasks.filter((task) => task.task_status == 'done');
+    let amount_progress = tasks.filter((task) => task.task_status == 'in_progress');
+    let amount_feedback = tasks.filter((task) => task.task_status == 'await_feedback');
     let amount_urgent = tasks.filter((task) => task.task_priority == 'urgent');
     let amount_in_board = tasks.length;
     getNextTaskDueDate(tasks);
-    console.log(amount_in_board);
 
     to_do_ref.innerHTML = amount_to_dos.length;
     done_ref.innerHTML = amount_done.length;

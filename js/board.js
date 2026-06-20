@@ -7,8 +7,9 @@ function initBoard() {
     renderTaskBoard();
 }
 
-function openAddTaskDialog(task_status) {
+async function openAddTaskDialog(task_status) {
     let dialog = document.getElementById('add_task_board_dialog');
+    await renderTaskContacts();
     dialog.showModal();
     newTask.task_status = task_status;
 }

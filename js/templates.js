@@ -247,8 +247,7 @@ function renderEditContactDialog(contactRef, contact_id, contact_name, contact_i
      <div class="add_content_dialog_content">
             <aside class="add_contact_dialog_aside">
                 <img src="assets/img/join_logo_large.png" alt="Logo">
-                <h1>Add contact</h1>
-                <p>Tasks are better with a team!</p>
+                <h1>Edit contact</h1>
             </aside>
             <section class="add_contact_right_section">
                 <img onclick="closeAddContactDialog()" class="contact_close_btn" src="assets/img/addtask_cancel.png" alt="Cancel Button">
