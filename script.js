@@ -1,6 +1,7 @@
 let BASE_URL = "https://join-4afa9-default-rtdb.europe-west1.firebasedatabase.app/";
 
 async function init(item) {
+  await checkIfUserIsloggedIn();
   await includeHTML();
   setBGForCurrentNavItem(item)
 }
@@ -48,8 +49,14 @@ function setBGForCurrentNavItem(item) {
 }
 
 function loadCurrentUser() {
-    let currentUser = sessionStorage.getItem('currentUserKey')
-    return currentUser
+  let currentUser = sessionStorage.getItem('currentUserKey')
+  return currentUser
+}
+
+async function checkIfUserIsloggedIn() {
+  if (!loadCurrentUser()) {
+    window.location.href = 'index.html';
+  }
 }
 
 async function getData(path = "") {
@@ -69,22 +76,22 @@ async function postData(path = "", data = {}) {
 }
 
 async function deleteData(path = "") {
-    let response = await fetch(BASE_URL + path + ".json", {
-        method: "DELETE", 
-        
-    })
-    return responseToJson = await response.json();
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "DELETE",
+
+  })
+  return responseToJson = await response.json();
 }
 
-async function putData(path = "", data={}) {
-     let response = await fetch(BASE_URL + path + ".json", {
-        method: "PUT", 
-        header: {
-            "Content-Type": "application/json", 
-        },
-        body: JSON.stringify(data)
-    })
-    return responseToJson = await response.json();
+async function putData(path = "", data = {}) {
+  let response = await fetch(BASE_URL + path + ".json", {
+    method: "PUT",
+    header: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data)
+  })
+  return responseToJson = await response.json();
 }
 
 

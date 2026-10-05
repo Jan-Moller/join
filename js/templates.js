@@ -199,7 +199,7 @@ function renderAddContactDialog(dialogRef) {
 
 function renderContactFromAllContacts(contact_id, contact_name, contact_initials, contact_bg, contact_mail) {
     return /*html*/ `
-<article class="contact_list_item" onclick="showCurrentContact('${contact_id}')">
+<article class="contact_list_item" id="current_contact_id_${contact_id}" onclick="showCurrentContact('${contact_id}')">
     <span style="background: ${contact_bg}"  class="contact_initials">${contact_initials}</span>
     <div class="contact_info_section">
         <span>${contact_name}</span>

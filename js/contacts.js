@@ -1,5 +1,10 @@
 let userContacts = [];
 
+function initContact() {
+    init('nav_item_contacts')
+    renderAllContacts();
+}
+
 async function renderAllContacts() {
     await getContactData();
     let contactsListRef = document.getElementById('contact_list');
@@ -84,6 +89,7 @@ function getRandomColor() {
 }
 
 function showCurrentContact(contact_id) {
+    setBackgroundForActiveContact(contact_id);
     let contactRef = document.getElementById('current_contact_ref');
     contactRef.innerHTML = '';
 
@@ -99,6 +105,12 @@ function showCurrentContact(contact_id) {
         contact.contact_phone
     );
     window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function setBackgroundForActiveContact(contact_id) {
+    document.querySelectorAll('.contact_list_item').forEach(el => el.classList.remove('active_contact_item'));
+    let contactListRef = document.getElementById(`current_contact_id_${contact_id}`);
+    if (contactListRef) contactListRef.classList.add('active_contact_item');
 }
 
 async function deleteContact(contact_id) {
@@ -174,7 +186,7 @@ async function findAllTasksForContact(contact, userKey) {
         const taskKey = taskKeys[i];
         const assignedContacts = tasksResponse[taskKey].assigned_contacts;
         console.log(assignedContacts);
-        
+
         if (!assignedContacts) continue;
 
         for (const [key, assignedContact] of Object.entries(assignedContacts)) {

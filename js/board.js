@@ -106,9 +106,14 @@ function createTaskContactList(contacts) {
     let contactList = '';
 
     if (contacts) {
-        for (let i = 0; i < contacts.length; i++) {
-            const contact = contacts[i];
+        const validContacts = contacts.filter(c => c != null);
+        for (let i = 0; i < Math.min(3, validContacts.length); i++) {
+            const contact = validContacts[i];
             contactList += `<div class="contact_initials" style="background-color:${contact.initial_bg}">${contact.contact_initials}</div>`;
+        }
+        if (validContacts.length > 3) {
+            const additionalContacts = validContacts.length - 3;
+            contactList += `<div class="additional_contacts">+${additionalContacts} </div>`;
         }
         return contactList;
     } else { return '' };
@@ -169,6 +174,7 @@ function createDetailedTaskContactListHTML(contacts) {
     if (contacts) {
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
+            if (!contact) continue;
             contactList += `
             <article class="detailed_task_contact_list">
                 <div class="contact_initials contact_initilas_detailed_task" style="background-color: ${contact.initial_bg}">${contact.contact_initials}</div>
@@ -184,6 +190,7 @@ function createDetailedTaskContactListHTMLEditView(contacts) {
     if (contacts) {
         for (let i = 0; i < contacts.length; i++) {
             const contact = contacts[i];
+            if (!contact) continue;
             contactList += /*html*/ `
            <div class="contact_initials_edit_view" style="background-color: ${contact.initial_bg}">${contact.contact_initials}</div>`
         }
@@ -254,6 +261,7 @@ function openDetailedTaskCardEditView(taskIndex) {
     if (!Array.isArray(currentTask.assigned_contacts)) {
         currentTask.assigned_contacts = Object.values(currentTask.assigned_contacts);
     }
+    currentTask.assigned_contacts = currentTask.assigned_contacts.filter(c => c != null);
     currentTask.task_category === 'Technical Task' ? categoryClass = 'technical_task' : categoryClass = 'user_story';
     let due_date = currentTask.task_due_date;
     let taskPriorityImg = currentTask.task_priority ? `<img src="assets/img/${currentTask.task_priority}_prio_icon.png" alt="Priorität: ${currentTask.task_priority}">` : '';
@@ -299,7 +307,7 @@ async function selectTaskContactEditView(id, i, taskIndex) {
 
     } else {
         img.src = "assets/img/contact_check_btn.png";
-        const index = currentTask.assigned_contacts.findIndex(c => c.contact_id === userContacts[i].contact_id);
+        const index = currentTask.assigned_contacts.findIndex(c => c && c.contact_id === userContacts[i].contact_id);
         if (index > -1) {
             currentTask.assigned_contacts.splice(index, 1);
         }
@@ -346,7 +354,7 @@ function renderTaskContactEditViewContactChoosen(contactsRef, contact, i, taskIn
 
 function checkForAssignedContact(contact, currentTask) {
     if (!currentTask.assigned_contacts) return false;
-    return currentTask.assigned_contacts.some(c => c.contact_id === contact.contact_id);
+    return currentTask.assigned_contacts.some(c => c && c.contact_id === contact.contact_id);
 }
 
 async function setTaskChanges(taskIndex) {

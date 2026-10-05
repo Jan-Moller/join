@@ -178,6 +178,12 @@
     cursor: pointer;
 }
 
+.contact_list_item.active_contact_item {
+   background-color: rgba(42, 54, 71, 1);
+   border-radius: 10px;
+   color:white; 
+}
+
 .contact_info_section {
     display: flex;
     flex-direction: column;
